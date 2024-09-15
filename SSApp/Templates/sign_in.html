@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block login %}
+
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+
+<div class="login-box" style="width: 100%;">
+    <article class="login-container">
+        <section>
+            <form action="">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        autofocus>
+                    <label for="floatingInput">Email / Tên tài khoản</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Mật khẩu</label>
+                </div>
+                <div class="form-floating mb-5">
+                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="form-floating mb-5">
+            <a href="{% url 'social:begin' 'google-oauth2' %}?next=/login/?email=true"
+                class="btn btn-light google-sign-in">
+                <div class="google-logo">
+                    <img class="btn-logo" width="25px" height="25px" src="{% static 'Image\logo\google-logo.png' %}">
+                </div>
+                <span style="font-weight: 500;">Đăng nhập bằng Google</span>
+            </a>
+        </section>
+
+        <section class="form-floating">
+            <b>Bạn chưa có tài khoản?</b>
+            <a href="{% url 'register' %}">Tạo tài khoản</a>
+        </section>
+
+    </article>
+</div>
+
+{% endblock login %}

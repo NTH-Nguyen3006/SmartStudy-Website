@@ -1,0 +1,251 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block signUp %}
+
+<!-- <link rel="stylesheet" href="{% static 'css/account.css' %}"> -->
+
+<style>
+    .login-container,
+    .register-container {
+        width: 35%;
+        /* height: calc(40rem + 30px); */
+        height: auto;
+        padding: 50px 20px;
+        background-color: aliceblue;
+        border-radius: 10px;
+        box-shadow: 3px 3px 10px #3a3a3a;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn {
+        align-items: center;
+        border: none;
+        border-radius: var(--border-radius-default);
+        cursor: pointer;
+        display: flex;
+        font-size: var(--text-size-m);
+        justify-content: center;
+        line-height: var(--line-height-m);
+        padding: 6px;
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 100%;
+    }
+
+    .btn-light,
+    .btn-primary {
+        box-shadow: 0 0 0 1px;
+        transition: .2s ease-in-out;
+        border-radius: 5px;
+        padding: 10px 30px;
+    }
+
+    .btn-logo {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        -o-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .header-container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+    }
+
+    .login-box,
+    .register-box {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    @media screen and (max-width: 991.2px) {
+
+        .login-container,
+        .register-container {
+            width: 60%;
+            height: auto;
+            padding: 50px 20px;
+            border-radius: 10px;
+            /* height: calc(40rem + 20px); */
+            box-shadow: 3px 3px 10px #3a3a3a;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+
+        .login-container,
+        .register-container {
+            width: 90%;
+            height: auto;
+            border-radius: 10px;
+            padding: 50px 20px;
+            /* height: calc(40rem + 20px); */
+            box-shadow: 3px 3px 10px #3a3a3a;
+        }
+    }
+</style>
+
+<div class="register-box" style="width: 100%;">
+    <article class="register-container">
+        <section>
+            <!-- <form id="form-input" action=""> -->
+            {% csrf_token %}
+            <div class="form-floating mb-3" id="username-box">
+                <input name="username" class="form-control" id="floatingInput" placeholder="username">
+                <label for="floatingInput">Tên đăng nhập</label>
+            </div>
+
+            {% if not is_register %}
+            <div class="form-floating mb-3" id="full_name-box">
+                <div class="form-floating">
+                    <input name="last_name" class="form-control" id="floatingInput" placeholder="first_name">
+                    <label for="floatingInput">Họ</label>
+                </div>
+                <div class="form-floating">
+                    <input name="first_name" class="form-control" id="floatingInput" placeholder="last_name">
+                    <label for="floatingInput">Tên</label>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3" id="email-box">
+                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                    aria-describedby="validationServerFeedback" required>
+                <label for="floatingInput">Email</label>
+            </div>
+            {% endif %}
+
+            <div class="form-floating mb-3" id="password-box">
+                <input type="password" name="password" class="form-control" id="floatingPassword"
+                    onkeyup="checkPasswordFormInput()" placeholder="password">
+                <label for="floatingPassword">Mật khẩu</label>
+            </div>
+            <div class="form-floating mb-3" id="verify_password-box">
+                <input type="password" name="verify_password" class="form-control" id="floatingPassword"
+                    placeholder="Password" onkeyup="checkVerifyPassword()">
+                <label for="floatingPassword">Xác nhận mật khẩu</label>
+            </div>
+            <div class="form-floating mb-5">
+                <button class="btn btn-primary" id="submit-button" type="submit">Xác nhận</button>
+            </div>
+            <!-- </form> -->
+        </section>
+
+        {% if not is_register %}
+        <section class="form-floating">
+            <a href="{% url 'social:begin' 'google-oauth2' %}?next=/register/?register=email"
+                class="btn btn-light google-sign-in">
+                <div class="google-logo">
+                    <img class="btn-logo" width="25px" height="25px" src="{% static 'Image\logo\google-logo.png' %}">
+                </div>
+                <span style="font-weight: 500;">Đăng ký bằng Google</span>
+            </a>
+        </section>
+        {% endif %}
+    </article>
+</div>
+
+<script src="{% static 'Scripts.js' %}"></script>
+
+<script>
+    // const form = document.getElementById('form-input')
+    function checkEmpty(content) {
+        if (content[0].value)
+            return content[0].value
+
+        let box = document.getElementById(`${content[0].name}-box`)
+        const tagInput = document.getElementsByName(content[0].name)
+
+        if (content[0].name == "first_name" || content[0].name == "last_name")
+            box = document.getElementById(`full_name-box`)
+
+        // Tạo thẻ div có các thuộc tính
+        let create_div = document.createElement('div');
+        create_div.className = "invalid-feedback";
+        create_div.id = "validationServerFeedback";
+        create_div.textContent = "Nhập thông tin để xác thực.";
+
+        tagInput[0].className = 'form-control is-invalid';
+
+        if (!box.querySelector('.invalid-feedback'))
+            box.insertBefore(create_div, box.children[-1]);
+
+        return "";
+
+    }
+
+    const submitButton = document.getElementById('submit-button')
+
+    submitButton.addEventListener('click', function (e) {
+        const username = document.getElementsByName('username');
+        const f_name = document.getElementsByName('first_name');
+        const l_name = document.getElementsByName('last_name');
+        const email = document.getElementsByName('email');
+        const password = document.getElementsByName('password');
+        const verify_password = document.getElementsByName('verify_password');
+
+        let listCheckEmpty = [checkEmpty(username), checkEmpty(f_name), checkEmpty(l_name), checkEmpty(email), checkEmpty(password), checkEmpty(verify_password),]
+
+        if (listCheckEmpty.includes("")) {
+            throw new Error("have tag is null");
+            return
+        }
+
+        fetch('{% url "register" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'username': username[0].value,
+                'first_name': f_name[0].value,
+                'last_name': l_name[0].value,
+                'email': email[0].value,
+                'password': password[0].value,
+                'verify_password': verify_password[0].value
+            }),
+        }).then(response => {
+            if (response.status == 200) {
+                return window.location.href = "{% url 'login' %}";
+            };
+            return response.json();
+        }).then(data => {
+            var error_message = data.messages
+            var error_input = data.error_input
+            const box = document.getElementById(`${error_input}-box`)
+            const tagInput = document.getElementsByName(error_input)
+
+            // Tạo thẻ div có các thuộc tính
+            let create_div = document.createElement('div')
+            create_div.className = "invalid-feedback";
+            create_div.id = "validationServerFeedback"
+            create_div.textContent = error_message
+
+            tagInput[0].className = 'form-control is-invalid'
+
+            if (!box.querySelector('.invalid-feedback'))
+                box.insertBefore(create_div, box.children[-1])
+        });
+    });
+
+
+</script>
+
+<script></script>
+
+{% endblock signUp %}
