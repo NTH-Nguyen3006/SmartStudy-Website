@@ -8,25 +8,23 @@
 <div class="login-box" style="width: 100%;">
     <article class="login-container">
         <section>
-            <form action="">
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-                        autofocus>
-                    <label for="floatingInput">Email / Tên tài khoản</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Mật khẩu</label>
-                </div>
-                <div class="form-floating mb-5">
-                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
-                </div>
-            </form>
+            <div class="form-floating mb-3" id="account-input">
+                <input type="email" class="form-control" name="account" id="floatingInput"
+                    placeholder="name@example.com" onkeyup="listen_onkeyup()" autofocus>
+                <label for="floatingInput">Email / Tên tài khoản</label>
+            </div>
+            <div class="form-floating mb-3" id="password-input">
+                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password"
+                    onkeyup="listen_onkeyup()">
+                <label for="floatingPassword">Mật khẩu</label>
+            </div>
+            <div class="form-floating mb-5">
+                <button class="btn btn-primary" id="submit-button" type="submit">Đăng nhập</button>
+            </div>
         </section>
 
         <section class="form-floating mb-5">
-            <a href="{% url 'social:begin' 'google-oauth2' %}?next=/login/?email=true"
-                class="btn btn-light google-sign-in">
+            <a href="{% url 'social:begin' 'google-oauth2' %}?next=/" class="btn btn-light google-sign-in">
                 <div class="google-logo">
                     <img class="btn-logo" width="25px" height="25px" src="{% static 'Image\logo\google-logo.png' %}">
                 </div>
@@ -38,8 +36,64 @@
             <b>Bạn chưa có tài khoản?</b>
             <a href="{% url 'register' %}">Tạo tài khoản</a>
         </section>
-
     </article>
 </div>
+
+<script>
+    const account = document.getElementsByName("account");
+    const password = document.getElementsByName("password");
+
+    document.getElementById("submit-button").addEventListener("click", () => {
+        if (account[0].value && password[0].value) {
+            account_value = account[0].value;
+            password_value = password[0].value;
+
+            fetch("{% url 'login' %}", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify({
+                    "account": account_value,
+                    "password": password_value,
+                }),
+            }).then(response => {
+                if (response.status == 200) {
+                    window.location.href = "{% url 'home' %}"
+                }
+            });
+        } else {
+            function addElementError(element, input_name) {
+                input_name[0].className = "form-control is-invalid";
+                let create_div = document.createElement('div');
+                create_div.className = "invalid-feedback";
+                create_div.id = "validationServerFeedback";
+                create_div.textContent = "Vui lòng nhập đủ thông tin để đăng nhập";
+
+                if (!element.querySelector('.invalid-feedback')) {
+                    element.insertBefore(create_div, element.children[-1]);
+                }
+            }
+
+            if (!account[0].value) {
+                const account_form = document.getElementById("account-input");
+                addElementError(account_form, account);
+            }
+            if (!password[0].value) {
+                const password_form = document.getElementById("password-input");
+                addElementError(password_form, password);
+            }
+        }
+    });
+
+    function listen_onkeyup() {
+        if (account[0].value) {
+            account[0].className = "form-control";
+        }
+        if (password[0].value) {
+            if (password[0].value) {
+                password[0].className = "form-control";
+            }
+        }
+    }
+</script>
 
 {% endblock login %}

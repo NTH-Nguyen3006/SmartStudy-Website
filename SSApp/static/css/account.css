@@ -1,5 +1,12 @@
+.login-box,
+.register-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .login-container,
-register-box {
+.register-container {
     width: 35%;
     height: calc(40rem + 30px);
     padding: 50px 20px;
@@ -60,14 +67,10 @@ a {
     margin-bottom: 40px;
 }
 
-.login-box {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
 @media screen and (max-width: 991.2px) {
-    .login-container {
+
+    .login-container,
+    .register-container {
         width: 60%;
         padding: 50px 20px;
         border-radius: 10px;
@@ -77,7 +80,9 @@ a {
 }
 
 @media screen and (max-width: 768px) {
-    .login-container {
+
+    .login-container,
+    .register-container {
         width: 90%;
         border-radius: 10px;
         padding: 50px 20px;

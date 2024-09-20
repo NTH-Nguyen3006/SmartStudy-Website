@@ -71,9 +71,17 @@
                             <li class="nav-item Index">
                                 <a class="nav-link index" href="#">Giới thiệu</a>
                             </li>
+                            {% if user.is_anonymous %}
                             <li class="nav-item Index">
-                                <a class="nav-link index" href="{% url 'login' %}">Đăng Nhập/ Đăng ký</a>
+                                <a class="nav-link index" href="{% url 'login' %}">Đăng Nhập / Đăng ký</a>
                             </li>
+                            {% else %}
+                            <li class="nav-item Index">
+                                <a class="nav-link index" href="{% url 'acount' user.username%}">Hi
+                                    {{user.username.title}} !</a>
+                            </li>
+
+                            {% endif %}
                         </ul>
                         <!-- <form class="d-flex" role="search">
                             <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
@@ -88,6 +96,7 @@
 
     {% block home %} {% endblock home %}
     {% block login %}{% endblock login %}
+    {% block profile %}{% endblock profile %}
 
     {% block encode %} {% endblock encode %}
     {% block math %} {% endblock math %}

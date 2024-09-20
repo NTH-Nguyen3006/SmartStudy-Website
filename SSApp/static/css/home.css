@@ -1,6 +1,7 @@
 nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.index {
     width: 100%;
-    top: -7px;
+    top: -8px;
+    height: 70px;
 }
 
 @media (max-width: 991.2px) {

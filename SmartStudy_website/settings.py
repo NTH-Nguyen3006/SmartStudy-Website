@@ -171,9 +171,25 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
 # SOCIAL_AUTH_LOGIN_ERROR_URL = 'register'
 # SOCIAL_AUTH_BACKEND_ERROR_URL = 'register'
 
-import django.core.mail.backends.smtp as smtp
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtop.gmail.com"
 EMAIL_HOST_USER = "smartstudy2023edu@gmail.com"
 EMAIL_HOST_PASSWORD = "ssbot12345"
 EMAIL_PORT = 587
+
+
+# TOKEN API 
+GENAI_KEYS = [
+    "AIzaSyB6VIzIMt-Eax92Zt9GPQeiM0wE2KLo090", 
+    "AIzaSyBsDUsHnMcr_Ge2v_bfUqHM93UyxQhhLoM",
+    "AIzaSyDa6lrPCSEBRNCSdf9rNT7fB-M0LtUauSk",
+    "AIzaSyAn0P7Dlsr9ECtxIAXF8t7HsLEIwZsv12w",
+    "AIzaSyBurZlgp1HygtPZxR-VwOxgr_2HZZQKo1U",
+    "AIzaSyAHQeP6Kxts5kx8IftP-EShNb9P9a18uGM",
+    "AIzaSyCviosQe-qIKt_MhseTVXO7GEYzmCkVSmE",
+    "AIzaSyBLi2riLSjuQEfnyIf31aoSlEJNluq8-F4"
+]
+
+OPENAI_KEY = ""
+# GITHUB_KEY = 
+
