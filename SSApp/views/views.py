@@ -9,12 +9,20 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from ..Plugin import sschat, encodePython, Conversion
-# from .SmartStudy import centre, Sundry
-# from .SmartStudy.Plugin import EncodePython, Conversion
 from ..models import Irregular_Verb, Eng_Dictionary, Chemicals, Exam, Q
 from ..serializers import *
 
+from django.core.mail import send_mail
 
+# send_mail(
+#     "Subject here",
+#     '[link=http://localhost:8000/]Liên hệ với chúng tôi[/link]',
+#     "smartstudy2023edu@gmail.com",
+#     ["nthn300607@gmail.com"],
+#     fail_silently=False,
+# )
+
+# Views
 def home(req):
     if req.method == "GET":
         print(req.user)
@@ -25,7 +33,7 @@ def SSChat(req):
     if req.method == "GET":
         return render(req, "Template/sschat.html")
     
-    else: #Post
+    if req.method == "POST": #Post
         if req.POST.get("message"):
             message = req.POST["message"]
             resultResponse = sschat.generateResponse(message)
@@ -110,6 +118,29 @@ def EngDictionary_view(req):
             print(e)
             return render(req, "Template/eng_dictionary.html", status=500)
             
+
+def trac_nghiem_view(req, endpoint=None):
+    template_path = "Template/Subject-Test/" 
+    if req.method == "GET":
+        if endpoint != None:
+            templates = {
+            #   endpoint: html
+                "mon-hoc": "subject.html",
+                'kiem-tra-15-phut': 'quiz.html',
+                # 'kiem-tra-giua-hoc-ki-1': "midterm_exam.html",
+                'kiem-tra-hoc-ki-1': 'final_exam_1.html',
+                'danh-gia-nang-luc': 'competency_test.html',
+                'danh-gia-tu-duy': 'thinking_test.html',
+            } 
+
+            return render(request=req, 
+                        template_name=f"{template_path}{templates[endpoint]}")
+
+    
+    return render(request=req, 
+                  template_name=f"{template_path}subject_test.html")
+
+
     
 def Python(req):
     if req.method == 'GET':

@@ -78,7 +78,7 @@
                             {% else %}
                             <li class="nav-item Index">
                                 <a class="nav-link index" href="{% url 'acount' user.username%}">Hi
-                                    {{user.username.title}} !</a>
+                                    {{user.first_name.title}} !</a>
                             </li>
 
                             {% endif %}
@@ -110,6 +110,7 @@
     {% block sschat %} {% endblock sschat %}
     {% block introduction %} {% endblock introduction %}
     {% block signUp %}{% endblock signUp %}
+    {% block trac_nghiem %} {% endblock trac_nghiem %}
 
 </body>
 

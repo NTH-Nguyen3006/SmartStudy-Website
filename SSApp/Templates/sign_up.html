@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
+
 {% block signUp %}
 <link rel="stylesheet" href="{% static 'css/account.css' %}">
 <script src="{% static 'Scripts.js' %}"></script>
@@ -111,11 +112,11 @@
 
             <div class="form-floating mb-3" id="full_name-box">
                 <div class="form-floating">
-                    <input name="last_name" class="form-control" id="floatingInput" placeholder="first_name">
+                    <input name="last_name" class="form-control" id="floatingInput" placeholder="last_name">
                     <label for="floatingInput">Họ</label>
                 </div>
                 <div class="form-floating">
-                    <input name="first_name" class="form-control" id="floatingInput" placeholder="last_name">
+                    <input name="first_name" class="form-control" id="floatingInput" placeholder="first_name">
                     <label for="floatingInput">Tên</label>
                 </div>
             </div>
@@ -162,15 +163,9 @@
             const verify_password = document.getElementsByName('verify_password');
 
             let listCheckEmpty = [checkEmpty(username), checkEmpty(password), checkEmpty(verify_password), checkEmpty(f_name), checkEmpty(l_name), checkEmpty(email),]
+            console.log(listCheckEmpty.includes(""));
 
-            if (username[0] && f_name[0] && l_name[0] && email[0] && password[0] && verify_password[0]) {
-                username = username[0].value
-                f_name = f_name[0].value
-                l_name = l_name[0].value
-                email = email[0].value
-                password = password[0].value
-                verify_password = verify_password[0].value
-
+            if (!listCheckEmpty.includes("")) {
                 fetch('{% url "register" %}', {
                     method: 'POST',
                     headers: {

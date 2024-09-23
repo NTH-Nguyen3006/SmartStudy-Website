@@ -1,4 +1,4 @@
-import json
+import json, base64
 
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, JsonResponse
@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 from requests import Response
 from rest_framework import status
+from django.core.mail import send_mail
 
 
 def signIn(req: HttpRequest):
@@ -33,8 +34,6 @@ def signIn(req: HttpRequest):
                 "messages": "User not found",
             }, status=status.HTTP_404_NOT_FOUND)
         
-    
-
     return render(req, 'sign_in.html')
 
 
@@ -45,8 +44,30 @@ def signUp(req: HttpRequest):
             if req.user.has_usable_password():
                 return redirect("/")
         
+        # Người dùng xác nhận xác thực vào được vào DB
+        if req.GET.get("code"): 
+            code = req.GET.get("code")
+            decode = base64.b64decode(code).decode("utf-8")
+            data = json.loads(decode)
+
+            username = data.get("username")
+            email = data.get("email")
+            password = data.get("password")
+            verify_password = data.get("verify_password")
+            first_name = data.get("first_name")
+            last_name = data.get("last_name")
+
+            user_data = User.objects.create_user(
+                username=username, email=email, password=password)
+            
+            user_data.first_name = first_name
+            user_data.last_name = last_name
+            user_data.save()
+            return redirect("login")
+        
         return render(req, template_name="sign_up.html")
     
+
     if req.method == "POST":
         print(req.body)
         data = json.loads(req.body.decode("utf-8"))
@@ -93,16 +114,34 @@ def signUp(req: HttpRequest):
             user_data.save()
             
         elif len(data) == 6:
-            user_data = User.objects.create_user(
-                username=username, email=email, password=password)
+            encode = base64.b64encode(req.body).decode('utf-8')
+            urlSS = f"http://localhost:8000/register/?code={encode}"
+
+            message = f"""
+Xin gửi lời chào đến người dùng SmartStudy Website!
+Hiện tại bạn đang xác thực bạn là người dùng trên website. Bạn đã đăng ký với các thông tin sau:
+- Tên đăng nhập: {username}
+- Email của bạn : {email}
+- Họ: {last_name}
+- Tên: {first_name}
+Xin vui lòng ấn vào url để xác thực: {urlSS}.
+
+Xin trân thành cảm ơn bạn đã ghé thăm và trải nghiệm website lần đầu tiên.
+Chúc bạn có buổi trải nghiệm tốt.
+"""
+            send_mail(
+                subject="Xác thực thông tin người dùng từ SmartStudy Website",
+                message=message,
+                from_email="smartstudy2023edu@gmail.com",
+                recipient_list=["nthn300607@gmail.com"],
+                fail_silently=False,
+            )
+
             
-            user_data.first_name = first_name
-            user_data.last_name = last_name
-            user_data.save()
         
         # send_mail_to_user(email)
 
-        return redirect("login")
+        return redirect("register")
     # return render(req, "sign_up.html")
 
 

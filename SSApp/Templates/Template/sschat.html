@@ -72,7 +72,7 @@
 
         const userMessage = document.createElement('div');
         userMessage.className = 'user-message';
-        userMessage.textContent = 'Tôi: ' + message;
+        userMessage.textContent = message;
         chatBox.appendChild(userMessage);
 
         document.getElementById('message').value = '';
@@ -93,8 +93,10 @@
                 // console.log(data);
                 const botMessage = document.createElement('div');
                 botMessage.className = 'bot-message';
-                botMessage.textContent = 'Bot: ' + data.reply;
+                botMessage.textContent = 'SmartStudy: ' + data.reply;
                 chatBox.appendChild(botMessage);
+                console.log(botMessage);
+
             })
             .catch(error => {
                 console.error('Error:', error);

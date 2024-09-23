@@ -172,10 +172,11 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
 # SOCIAL_AUTH_BACKEND_ERROR_URL = 'register'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtop.gmail.com"
-EMAIL_HOST_USER = "smartstudy2023edu@gmail.com"
-EMAIL_HOST_PASSWORD = "ssbot12345"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+EMAIL_HOST_USER = "smartstudy2023edu@gmail.com"
+EMAIL_HOST_PASSWORD = "zmnx nlsd yvvn ciyh"
 
 
 # TOKEN API 

@@ -27,6 +27,10 @@ endpoint_site = [
     path('physics/', views.Physics, name="physics"),
     path('chemical/', views.Chemical, name="chemical"),
     path('eng-dict/', views.EngDictionary_view, name="eng_dict"),
+    
+    path('trac-nghiem/', views.trac_nghiem_view, name="subject-test"),
+    path('trac-nghiem/<str:endpoint>', views.trac_nghiem_view, name="subject-test endpoint"),
+
     path('conversion/', views.Conversions, name="conversion"),
 
     path('exam/', views.Exam_view, name="exam"),

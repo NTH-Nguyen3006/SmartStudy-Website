@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra </title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        header {
+            background-color: #007bff;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .back-button button {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button button:hover {
+            background-color: #5a6268;
+        }
+
+        .subject-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .subject-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            flex-basis: 30%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .subject-card h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        .subject-card button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .subject-card button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #343a40;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .subject-card {
+                flex-basis: 45%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .subject-card {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Kiểm tra học kì 1
+    </header>
+
+    <div class="container">
+        <div class="back-button">
+            <button onclick="window.location.href='/'">Quay lại</button>
+        </div>
+        <div class="subject-group">
+            <div class="subject-card">
+                <h2>Văn</h2>
+                <button onclick="window.location.href='/quiz_van_hk1'">Làm bài</button>
+            </div>
+            <div class="subject-card">
+                <h2>Toán</h2>
+                <button onclick="window.location.href='/quiz_toan_hk1'">Làm bài</button>
+            </div>
+            <div class="subject-card">
+                <h2>Anh</h2>
+                <button onclick="window.location.href='/quiz_anh_hk1'">Làm bài</button>
+            </div>
+            <div class="subject-card">
+                <h2>Vật lý</h2>
+                <button onclick="window.location.href='/quiz_vat_ly_hk1'">Làm bài</button>
+            </div>
+            <div class="subject-card">
+                <h2>Sinh học</h2>
+                <button onclick="window.location.href='/quiz_sinh_hoc_hk1'">Làm bài</button>
+            </div>
+            <div class="subject-card">
+                <h2>Hóa học</h2>
+                <button onclick="window.location.href='/quiz_hoa_hoc_hk1'">Làm bài</button>
+            </div>
+            <div class="subject-card">
+                <h2>Lịch sử</h2>
+                <button onclick="window.location.href='/quiz_lich_su_hk1'">Làm bài</button>
+            </div>
+            <div class="subject-card">
+                <h2>Địa lý</h2>
+                <button onclick="window.location.href='/quiz_dia_ly_hk1'">Làm bài</button>
+            </div>
+            <div class="subject-card">
+                <h2>Công nghệ</h2>
+                <button onclick="window.location.href='/quiz_cong_nghe_hk1'">Làm bài</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Trang web trắc nghiệm. tuaaminh trum gemini.
+    </footer>
+</body>
+
+</html>
