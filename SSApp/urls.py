@@ -17,6 +17,7 @@ urls_account = [
     path('logout/', view=account_views.logout_user, name="logout"),
     path('acount/<username>/', account_views.show_profile_user, name="acount"),
     path('social-auth/', include('social_django.urls', namespace='social')),
+    path('reset-password/', account_views.reset_password_view, name="reset-password"),
 ]
 
 endpoint_site = [

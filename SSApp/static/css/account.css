@@ -1,5 +1,6 @@
 .login-box,
-.register-box {
+.register-box,
+.reset_password-box {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -8,11 +9,23 @@
 .login-container,
 .register-container {
     width: 35%;
-    height: calc(40rem + 30px);
+    height: auto;
+    /* calc(40rem + 30px); */
     padding: 50px 20px;
     background-color: aliceblue;
     border-radius: 10px;
-    box-shadow: 3px 3px 10px #3a3a3a;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.password-container,
+.email-container {
+    width: 35%;
+    padding: 50px 20px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     display: flex;
     flex-direction: column;
 }
@@ -70,7 +83,9 @@ a {
 @media screen and (max-width: 991.2px) {
 
     .login-container,
-    .register-container {
+    .register-container,
+    .password-container,
+    .email-container {
         width: 60%;
         padding: 50px 20px;
         border-radius: 10px;
@@ -82,7 +97,9 @@ a {
 @media screen and (max-width: 768px) {
 
     .login-container,
-    .register-container {
+    .register-container,
+    .password-container,
+    .email-container {
         width: 90%;
         border-radius: 10px;
         padding: 50px 20px;

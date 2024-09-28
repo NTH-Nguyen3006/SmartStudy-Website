@@ -135,7 +135,6 @@ def trac_nghiem_view(req, endpoint=None):
 
             return render(request=req, 
                         template_name=f"{template_path}{templates[endpoint]}")
-
     
     return render(request=req, 
                   template_name=f"{template_path}subject_test.html")

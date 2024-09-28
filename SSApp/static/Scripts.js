@@ -155,7 +155,6 @@ function checkEmpty(content) {
     if (content[0].value)
         return content[0].value
 
-
     let box = document.getElementById(`${content[0].name}-box`)
     const tagInput = document.getElementsByName(content[0].name)
 

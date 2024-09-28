@@ -13,10 +13,13 @@
                     placeholder="name@example.com" onkeyup="listen_onkeyup()" autofocus>
                 <label for="floatingInput">Email / Tên tài khoản</label>
             </div>
-            <div class="form-floating mb-3" id="password-input">
+            <div class="form-floating mb-2" id="password-input">
                 <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password"
                     onkeyup="listen_onkeyup()">
                 <label for="floatingPassword">Mật khẩu</label>
+            </div>
+            <div class="form-floating mb-3">
+                <a href="{% url 'reset-password' %}">Quên mật khẩu</a>
             </div>
             <div class="form-floating mb-5">
                 <button class="btn btn-primary" id="submit-button" type="submit">Đăng nhập</button>
