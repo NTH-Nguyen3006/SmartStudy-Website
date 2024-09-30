@@ -3,6 +3,7 @@
 
 {% block chemical %}
 <link rel="stylesheet" href="{%static 'css\chemical.css' %}">
+
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
@@ -19,7 +20,6 @@
     <article class="table-chemical" style="display: flex; flex-wrap: wrap; justify-content: center;">
         <div class="chemical-periodic-table">
             <div class="table-chemicals" id="table">
-
                 <a class="element element-1 _1(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                     onclick="getElement_Info('H')">
                     <div class="box content" style="display: flex;">
@@ -30,12 +30,8 @@
                                 Hydrogen</p>
                         </div>
                         <div class="content-2">
-                            <p class="atomic-mass">
-                                1.008 </p>
-
-                            <p class="electronegativity">
-                                2.2</p>
-
+                            <p class="atomic-mass"> 1.008 </p>
+                            <p class="electronegativity"> 2.2</p>
                         </div>
                     </div>
                 </a>
@@ -2423,31 +2419,63 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p> <strong>Người phát hiện: </strong> ... </p>
-                <p> <strong>Tên nguyên tố: </strong> ... </p>
-                <p> <strong>Kí hiệu: </strong> ... </p>
-                <p> <strong>Thể: </strong> ... </p>
-                <p> <strong>Phân lớp: </strong> ... </p>
-                <p> <strong>Nhóm: </strong> ... </p>
-                <p> <strong>Chu kì: </strong> ... </p>
-                <p> <strong>Phân loại: </strong> ... </p>
-                <p> <strong>Khối lượng riêng: </strong> ... </p>
-                <p> <strong>Nhiệt độ sôi: </strong> ...</p>
-                <p> <strong>Nhiệt độ nóng chảy: </strong> ...</p>
-                <p> <strong>Độ âm điện: </strong> ...</p>
-                <p> <strong>Số oxi hóa: </strong> ...</p>
-                <p> <strong>Cấu hình (e): </strong> ... </p>
-                <p> <strong>Mô tả hình dạng xuất hiện: </strong> ...</p>
-                <img src="{%static 'Image/logo/og-image.jpg' %}" alt="" style="width: 100%">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="set_modal_body_default()">Đóng</button>
                 <!-- <button type="button" class="btn btn-primary">Understood</button> -->
             </div>
         </div>
     </div>
 </div>
 
-<script src="{% static 'Scripts.js' %}"></script>
+<script defer>
+    async function getElement_Info(element) {
+        const modal = document.getElementsByClassName("modal-body");
+
+        modal[0].innerHTML = `<div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div></div>`;
+
+        fetch(`/api/chemical?element=${element}`)
+            .then(response => response.json())
+            .then(data => {
+                var electronegativity = data.electronegativity ? data.electronegativity : "Không có"
+                var oxidation = data.oxidation ? data.oxidation : "Không có"
+                var appearance = data.appearance ? data.appearance : "N/A"
+                var boil_K = data.boil_K ? data.boil_K : "Không có"
+                var melt_K = data.melt_K ? data.melt_K : "Không có"
+
+                string = `
+            <p> <strong>Người phát hiện: </strong> ${data.discoverer} </p>
+            <p> <strong>Tên nguyên tố: </strong> ${data.name_of_chemical} </p>
+            <p> <strong>Kí hiệu: </strong> ${data.symbol_chemical} </p>
+            <p> <strong>Thể: </strong> ${data.plase} </p>
+            <p> <strong>Số hiệu nguyên tử: </strong> ${data.id} </p>
+            <p> <strong>Nguyên tử khối: </strong> ${data.atomic_mass.toFixed(3)} </p>
+            <p> <strong>Phân lớp: </strong> ${data.block} </p>
+            <p> <strong>Nhóm: </strong> ${data.group} </p>
+            <p> <strong>Chu kì: </strong> ${data.period} </p>
+            <p> <strong>Phân loại: </strong> ${data.classify} </p>
+            <p> <strong>Khối lượng riêng: </strong> ${data.density} </p>
+            <p> <strong>Nhiệt độ sôi: </strong> ${boil_K} </p>
+            <p> <strong>Nhiệt độ nóng chảy: </strong> ${melt_K} </p>
+            <p> <strong>Độ âm điện: </strong> ${electronegativity} </p>
+            <p> <strong>Số oxi hóa: </strong> ${oxidation} </p>
+            <p> <strong>Cấu hình (e): </strong> ${data.configuration} </p>
+            <p> <strong>Mô tả hình dạng xuất hiện: </strong> ${appearance} </p>
+            <p> <strong> => </strong> ${data.summary} </p>
+            <img src="${data.image_URL}" alt="Hình ảnh của ${data.name_of_chemical}" style="width: 100%">
+            `;
+                modal[0].innerHTML = string;
+            });
+    }
+</script>
 
 {% endblock chemical %}

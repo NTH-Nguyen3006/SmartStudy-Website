@@ -127,7 +127,7 @@ def signUp(req: HttpRequest):
             encode = base64.b64encode(req.body).decode('utf-8')
             urlSS = f"http://localhost:8000/register/?code={encode}"
             codeAuthenticate = random.randint(123456, 987654)
-            cache.set(f"{123456}", timezone.now(), 10)
+            cache.set(f"{codeAuthenticate}", timezone.now(), 60*3)
 
             message = f"""
 Xin gửi lời chào đến người dùng SmartStudy Website!
@@ -168,6 +168,7 @@ def show_profile_user(req: HttpRequest, username):
 
 def reset_password_view(req: HttpRequest):
     context = {}
+    print(req.body)
     if req.method == "GET":        
         if req.GET.get("code"):
             code = req.GET.get("code")
@@ -194,14 +195,14 @@ Xin chào người dùng đang trải nghiệm Smart-Study Website!!!
 Hiện tại tôi thấy bạn đang có yêu cầu đặt lại mật khẩu cho tài khoản của bạn trên Smart-Study Website.
 Truy cập vào URL: {urlSS}
 """             
-
-                # send_mail(
-                #     subject="YÊU CẦU THAY ĐỔI MẬT KHẨU TÀI KHOẢN BẠN",
-                #     message=message,
-                #     from_email="smartstudy2023edu@gmail.com",
-                #     recipient_list=["nthn300607@gmail.com"],
-                #     fail_silently=False,
-                # )
+                print('send_mail')
+                send_mail(
+                    subject="YÊU CẦU THAY ĐỔI MẬT KHẨU TÀI KHOẢN BẠN",
+                    message=message,
+                    from_email="smartstudy2023edu@gmail.com",
+                    recipient_list=["nthn300607@gmail.com"],
+                    fail_silently=False,
+                )
                 return JsonResponse(
                     {"message": "email sent successfully"}, 
                     status=status.HTTP_201_CREATED)
