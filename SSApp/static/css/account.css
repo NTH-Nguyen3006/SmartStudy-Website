@@ -1,6 +1,7 @@
 .login-box,
 .register-box,
-.reset_password-box {
+.reset_password-box,
+.otpcode-box {
     width: 100%;
     display: flex;
     justify-content: center;

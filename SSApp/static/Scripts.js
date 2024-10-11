@@ -100,3 +100,21 @@ function create_valid_feedback(className = "invalid", content) {
 
     return create_div;
 }
+
+function otpCode_clickEnvent() {
+    const code_input = document.getElementsByName("otp-code");
+    const box = document.getElementById("verify_password-box");
+    var code = code_input[0].value;
+
+    document.getElementById('resend-otpcode').style = ''
+    fetch(`{% url 'register' %}?otp_code={{user}} ${code}`, { method: "POST" })
+        .then(response => {
+            let data = response.json();
+            if (response.status == 400) {
+                let create_div = create_valid_feedback(data.message);
+
+                if (!box.querySelector('.invalid-feedback'))
+                    box.insertBefore(create_div, box.children[-1]);
+            }
+        });
+}

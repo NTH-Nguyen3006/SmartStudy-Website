@@ -77,7 +77,7 @@
                             </li>
                             {% else %}
                             <li class="nav-item Index">
-                                <a class="nav-link index" href="{% url 'acount' user.username%}">Hi
+                                <a class="nav-link index" href="{% url 'account-show' user.username %}">Hi
                                     {{user.first_name.title}} !</a>
                             </li>
 
@@ -96,7 +96,10 @@
 
     {% block home %} {% endblock home %}
     {% block login %}{% endblock login %}
+    {% block otpcode %}{% endblock otpcode %}
     {% block profile %}{% endblock profile %}
+    {% block reset-password %} {% endblock reset-password %}
+    {% block signUp %}{% endblock signUp %}
 
     {% block encode %} {% endblock encode %}
     {% block math %} {% endblock math %}
@@ -109,9 +112,8 @@
     {% block conversion %} {% endblock conversion %}
     {% block sschat %} {% endblock sschat %}
     {% block introduction %} {% endblock introduction %}
-    {% block signUp %}{% endblock signUp %}
     {% block trac_nghiem %} {% endblock trac_nghiem %}
-    {% block reset-password %} {% endblock reset-password %}
+
 
 </body>
 

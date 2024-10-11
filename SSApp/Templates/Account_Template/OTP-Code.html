@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block otpcode %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+
+<div class="otpcode-box">
+    <article class="otpcode-container" id="otpcode-container">
+        <section class="otpcode-form" id="otpcode-form" style="height: 20em;">
+            <div class="form-floating mb-3">
+                <span class="prompt" style="color: gray; font-size: 12px;">
+                    Vui lòng truy cập vào Gmail của bạn vừa xác minh để đăng lấy mã OTP để xác thực.
+                </span>
+            </div>
+            <div class="form-floating mb-3" id="verify_password-box">
+                <input type="text" class="form-control" name="otp-code" id="floatingInput">
+                <label for="floatingInput">Nhập mã OTP</label>
+            </div>
+
+            <div class="form-floating mb-3" id="button-event">
+                <div class="form-floating mb-3" id="resend-otpcode"
+                    style="display: flex; justify-content: space-between;">
+                    <a class="resend" id="resend" type="button" onclick="">Gửi lại</a>
+                    <span id="countdown" style="margin-right: 10px; color: gray; font-size: 10px;"></span>
+                </div>
+                <button class="btn btn-primary" id="submit-button" type="submit">Gửi</button>
+            </div>
+        </section>
+    </article>
+</div>
+
+<script>
+    document.getElementById("submit-button").addEventListener("click", () => {
+
+    });
+</script>
+
+{% endblock otpcode %}

@@ -57,73 +57,6 @@ def signIn(req: HttpRequest):
 
 
 def signUp(req: HttpRequest):
-    if req.body: 
-        print(req.body)
-        data = json.loads(req.body.decode("utf-8"))
-        if not data:
-            return Response("Internal server errror", 
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        username = data.get("username")
-        email = data.get("email")
-        password = data.get("password")
-        verify_password = data.get("verify_password")
-        first_name = data.get("first_name")
-        last_name = data.get("last_name")
-
-        if User.objects.filter(username=username).exists():
-            return JsonResponse(data={
-                'messages': 'Tên này đã được tồn tại',
-                'error_input': 'username'
-            }, status=400)
-
-        if email and User.objects.filter(email=email).exists():
-            return JsonResponse(data={
-                'messages': 'Tài khoản email này đã được đăng ký',
-                'error_input': 'email',
-            }, status=400)
-        
-        if password != verify_password:
-            return JsonResponse(data={
-                'messages': 'Mật khẩu xác nhận không trùng khớp',
-                'error_input': 'verify_password',
-            }, status=400)
-        
-        if len(password) < 8 or len(password) > 20 :
-            return JsonResponse(data={
-                'messages': 'Mật khẩu chỉ được nằm trong phạm vi 8 đến 20 kí tự',
-                'error_input': 'password',
-            }, status=400)
-
-        if len(data) == 3:
-            user_data = User.objects.get(username=req.user.get_username())
-            user_data.username = username
-            user_data.set_password(password)
-            user_data.save()
-            
-        elif len(data) == 6:
-            otpCode = random.randint(123456, 987654)
-            cache.set(key=str(otpCode), value=data, timeout=60*3+1)
-
-            message = MAIL_OTPCODE_MESSAGE.format(
-                username=username, email=email, last_name=last_name,
-                first_name=first_name, otpCode=otpCode
-            )
-            print('send email.')
-            send_mail(
-                subject="Xác thực thông tin người dùng từ SmartStudy Website",
-                message=message,
-                from_email="smartstudy2023edu@gmail.com",
-                recipient_list=["nthn300607@gmail.com"],
-                fail_silently=False,
-            )
-
-            return JsonResponse(data={
-                "redirect": "otpcode",
-            }, status=status.HTTP_100_CONTINUE)
-            
-        return redirect("home")
-
     if req.method == "GET":
         print(req.user)
         if not req.user.is_anonymous:
@@ -161,11 +94,94 @@ def signUp(req: HttpRequest):
     
 
     if req.method == "POST":
-        if req.POST.get("code"):
-            lastCode = cache.get(key=req.POST.get("code"))
-            
+        print(req.body)
+        data = json.loads(req.body.decode("utf-8"))
+        if not data:
+            return Response("Internal server errror", 
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-            return redirect("home")
+        username = data.get("username")
+        email = data.get("email")
+        password = data.get("password")
+        verify_password = data.get("verify_password")
+        first_name = data.get("first_name")
+        last_name = data.get("last_name")
+
+        if User.objects.filter(username=username).exists():
+            return JsonResponse(data={
+                'messages': 'Tên này đã được tồn tại',
+                'error_input': 'username'
+            }, status=400)
+
+        if email and User.objects.filter(email=email).exists():
+            return JsonResponse(data={
+                'messages': 'Tài khoản email này đã được đăng ký',
+                'error_input': 'email',
+            }, status=400)
+        
+        if password and verify_password:
+            if password != verify_password:
+                return JsonResponse(data={
+                    'messages': 'Mật khẩu xác nhận không trùng khớp',
+                    'error_input': 'verify_password',
+                }, status=400)
+        
+            if len(password) < 8 or len(password) > 20 :
+                return JsonResponse(data={
+                    'messages': 'Mật khẩu chỉ được nằm trong phạm vi 8 đến 20 kí tự',
+                    'error_input': 'password',
+                }, status=400)
+
+        if len(data) == 3:
+            user_data = User.objects.get(username=req.user.get_username())
+            user_data.username = username
+            user_data.set_password(password)
+            user_data.save()
+            
+        elif len(data) == 6:
+            otpCode = random.randint(123456, 987654)
+            cache.set(key=f'{email} {otpCode}', value=data, timeout=60*3+1)
+            
+            message = MAIL_OTPCODE_MESSAGE.format(
+                username=username, email=email, last_name=last_name,
+                first_name=first_name, otpCode=otpCode
+            )
+            print('send email.')
+            send_mail(
+                subject="Xác thực thông tin người dùng từ SmartStudy Website",
+                message=message,
+                from_email="smartstudy2023edu@gmail.com",
+                recipient_list=["nthn300607@gmail.com"],
+                fail_silently=False,
+            )
+            print("data" ,data)
+            return JsonResponse(data={
+                "redirect": "otp-code",
+                "user": str(data),
+            }, status=status.HTTP_200_OK)
+            
+        if data.get("code"):
+            lastCode_value = cache.get(key=f'{data["user"]["email"]} {data["code"]}')
+            if lastCode_value is not None:
+                user_data = User.objects.create_user(
+                    username=lastCode_value["user"]['username'], 
+                    email=lastCode_value["user"]['email'], 
+                    password=lastCode_value["user"]['password']
+                )
+            
+                user_data.first_name = lastCode_value["user"]['first_name']
+                user_data.last_name = lastCode_value["user"]['last_name']
+                user_data.save()
+
+                return JsonResponse(data={
+                    "redirect": "/",
+                    "message": "Created User"
+                }, status=status.HTTP_201_CREATED)
+            else: 
+                return JsonResponse(data={
+                    "message": "Expired code !",
+                    "user": lastCode_value["user"]
+                }, status=status.HTTP_400_BAD_REQUEST)
 
         return redirect("home")
 
@@ -243,3 +259,18 @@ Truy cập vào URL: {urlSS}
     return render(request=req, 
                   template_name="Account_Template/reset-password.html", 
                   context=context)
+
+
+def OTPCode(req:HttpRequest):
+    if req.method == "GET":
+
+        return render(
+            request=req, 
+            template_name="Account_Template/OTP-Code.html", 
+            context={
+                'userInfo': req.GET
+            })
+        
+    if req.method == "POST":
+        return redirect("home")
+        
