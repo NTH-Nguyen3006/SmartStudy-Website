@@ -5,22 +5,22 @@
 <link rel="stylesheet" href="{% static 'css/account.css' %}">
 
 <div class="otpcode-box">
-    <article class="otpcode-container" id="otpcode-container">
+    <article class="otpcode-container" id="otpcode-container" style="margin: 0;">
         <section class="otpcode-form" id="otpcode-form" style="height: 20em;">
             <div class="form-floating mb-3">
                 <span class="prompt" style="color: gray; font-size: 12px;">
                     Vui lòng truy cập vào Gmail của bạn vừa xác minh để đăng lấy mã OTP để xác thực.
                 </span>
             </div>
-            <div class="form-floating mb-3" id="verify_password-box">
+            <div class="form-floating mb-3" id="otp-box">
                 <input type="text" class="form-control" name="otp-code" id="floatingInput">
                 <label for="floatingInput">Nhập mã OTP</label>
             </div>
 
             <div class="form-floating mb-3" id="button-event">
                 <div class="form-floating mb-3" id="resend-otpcode"
-                    style="display: flex; justify-content: space-between;">
-                    <a class="resend" id="resend" type="button" onclick="">Gửi lại</a>
+                    style="display: none; justify-content: space-between;">
+                    <a class="resend" id="resend" type="button">Gửi lại</a>
                     <span id="countdown" style="margin-right: 10px; color: gray; font-size: 10px;"></span>
                 </div>
                 <button class="btn btn-primary" id="submit-button" type="submit">Gửi</button>
@@ -31,6 +31,40 @@
 
 <script>
     document.getElementById("submit-button").addEventListener("click", () => {
+        const code = document.getElementsByName("otp-code")[0];
+
+        fetch("{% url 'otp-code' %}", {
+            method: "POST",
+            body: JSON.stringify({
+                "code": "{{userInfo.u}}" + "_" + code.value,
+                "user": JSON.stringify({
+                    "u": "{{userInfo.u}}",
+                    "l": "{{userInfo.l}}",
+                    "f": "{{userInfo.f}}",
+                    "e": "{{userInfo.e}}",
+                    "p": "{{userInfo.p}}",
+                    "s": "{{userInfo.s}}"
+                })
+            }),
+        }).then(response => {
+            if (response.status == 201) {
+                window.location.href = "{% url 'login' %}"
+            } else {
+                response.json().then(data => {
+                    var message = data.message;
+                    let create_div = document.createElement('div');
+                    const box = document.getElementsByName("otp-box")[0];
+
+                    document.getElementById
+                    create_div.className = `${className}-feedback`;
+                    create_div.id = "validationServerFeedback";
+                    create_div.textContent = message;
+
+                    if (!box.querySelector('.invalid-feedback'))
+                        box.insertBefore(create_div, box.children[-1]);
+                });
+            }
+        });
 
     });
 </script>

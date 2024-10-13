@@ -15,14 +15,10 @@ from rest_framework import status
 
 
 MAIL_OTPCODE_MESSAGE = """
-Xin gửi lời chào đến người dùng SmartStudy Website!
-Hiện tại bạn đang xác thực bạn là người dùng trên website. Bạn đã đăng ký với các thông tin sau:
-- Tên đăng nhập: {username}.
-- Email của bạn : {email}.
-- Họ: {last_name}.
-- Tên: {first_name}.
+Xin gửi lời chào đến bạn {last_name} {first_name} đang dùng SmartStudy Website!
+Hiện tại bạn đang xác thực bạn là người dùng trên website.
 
-Đây là mã xác thực của bạn. {otpCode}
+Đây là mã xác thực của bạn: {otpCode}
 Vui lòng quay lại website để nhập mã vào để xác thực.
 
 Xin trân thành cảm ơn bạn đã ghé thăm và trải nghiệm website lần đầu tiên.
@@ -218,7 +214,6 @@ def reset_password_view(req: HttpRequest):
         if request.get("email", None):
             try: 
                 email = request.get("email")
-                
                 encode = base64.b64encode(req.body).decode()
                 urlSS = f"http://localhost:8000/reset-password/?code={encode}"
 
@@ -263,14 +258,69 @@ Truy cập vào URL: {urlSS}
 
 def OTPCode(req:HttpRequest):
     if req.method == "GET":
-
+        user = {
+            "u": req.GET.get("u"),
+            "l": req.GET.get("l"),
+            "f": req.GET.get("f"),
+            "e": req.GET.get("e"),
+            "p": req.GET.get("p"),
+            "s": req.GET.get("size")
+        }
+        print(user)
+        otpCode = random.randint(123456, 987654)
+        cache.set(key=f'{req.GET.get("u")}_{otpCode}', value=user, timeout=60*3+1)
+        message = MAIL_OTPCODE_MESSAGE.format(
+            last_name=req.GET.get("l"), first_name=req.GET.get("f"), otpCode=otpCode
+        )
+        send_mail(
+            subject="Xác thực thông tin người dùng từ SmartStudy Website",
+            message=message,
+            from_email="smartstudy2023edu@gmail.com",
+            recipient_list=["nthn300607@gmail.com"],
+            fail_silently=False,
+        )
         return render(
             request=req, 
             template_name="Account_Template/OTP-Code.html", 
             context={
-                'userInfo': req.GET
+                'userInfo': user
             })
         
     if req.method == "POST":
-        return redirect("home")
-        
+        data = json.loads(req.body.decode())
+        print(data)
+
+        if data.get("code") and data.get("user"):
+            user_request :dict = json.loads(data.get("user"))
+            lastCode: dict = cache.get(data.get("code"))
+            
+            if lastCode is not None:
+                last_name = lastCode.get("l")
+                first_name = lastCode.get("f")
+                size = base64.b64encode(
+                    bytes(lastCode.get("s"), "utf8")).decode()
+                username = lastCode.get("u")
+                email = lastCode.get("e")[: -len(size)]
+                password = base64.b64decode(lastCode.get("p"))
+
+                for i in range(2):
+                    username = base64.b64decode(username)
+                    email = base64.b64decode(email)
+                    password = base64.b64decode(password)
+
+                createUser = User.objects.create_user(
+                    username=username.decode(), 
+                    email=email.decode(),
+                    password=password.decode()
+                )
+                createUser.last_name = last_name
+                createUser.first_name = first_name
+                createUser.save()
+
+                return JsonResponse(data={
+                    "message": "Created User"
+                }, status=status.HTTP_201_CREATED)
+            
+        return JsonResponse(data={
+            "message": "otpcode is not correct"
+        }, status=status.HTTP_400_BAD_REQUEST)
