@@ -1,74 +1,14 @@
-function checkPasswordFormInput() {
-    const input_tag = document.getElementsByName('password');
-    var input_value = input_tag[0].value;
-    console.log(input_value);
+function check_Password() {
+    const password = document.getElementsByName("password")[0];
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    console.log(password.value);
 
-    if (input_value.trim()) {
-        if (input_value.length < 8 || input_value.length > 20) {
-            const box = document.getElementById(`password-box`);
-            // const tagInput = document.getElementsByName(password)
-
-            // Tạo thẻ div có các thuộc tính
-            let create_div = create_valid_feedback(
-                "Mật khẩu chỉ được nằm trong phạm vi 8 đến 20 kí tự");
-
-            input_tag[0].className = 'form-control is-invalid';
-
-            if (!box.querySelector('.invalid-feedback'))
-                box.insertBefore(create_div, box.children[-1]);
-        }
-        else {
-            const box = document.getElementById(`password-box`);
-
-            // Tạo thẻ div có các thuộc tính
-            let create_div = create_valid_feedback("valid", "Mật khẩu hợp lý");
-
-            input_tag[0].className = 'form-control is-valid';
-
-            if (!box.querySelector('.invalid-feedback'))
-                box.insertBefore(create_div, box.children[-1]);
-        }
-    } else {
-        document.getElementById(
-            "validationServerFeedback").style = "dislay: none;";
-        input_tag[0].className = 'form-control';
-    }
-}
-
-function checkVerifyPassword() {
-    const verify_password = document.getElementsByName('verify_password');
-    const password = document.getElementsByName('password');
-    var verify_password_data = verify_password[0].value
-    var password_data = password[0].value
-
-    console.log(verify_password_data);
-
-    if (verify_password_data && password_data) {
-        if (verify_password_data !== password_data) {
-            const box = document.getElementById(`verify_password-box`)
-            // const tagInput = document.getElementsByName(password)
-            verify_password[0].className = 'form-control is-invalid'
-
-            // Tạo thẻ div có các thuộc tính
-            let create_div = create_valid_feedback("Mật khẩu xác nhận không hợp lệ.");
-            if (!box.querySelector('.invalid-feedback'))
-                box.insertBefore(create_div, box.children[-1])
-        } else {
-            const box = document.getElementById(`verify_password-box`)
-
-            verify_password[0].className = 'form-control is-valid'
-
-            // Tạo thẻ div có các thuộc tính
-            let create_div = create_valid_feedback("valid", "OK")
-            if (!box.querySelector('.valid-feedback'))
-                box.insertBefore(create_div, box.children[-1])
-        }
-    } else {
-        const feedback = document.getElementById("validationServerFeedback")
-        feedback.style = "dislay: none;"
-
-        verify_password[0].className = 'form-control'
-    }
+    if (regex.test(password.value))
+        password.className = "form-control is-valid";
+    else if (!password.value)
+        password.className = "form-control";
+    else
+        password.className = "form-control is-invalid";
 }
 
 function checkEmpty(content) {

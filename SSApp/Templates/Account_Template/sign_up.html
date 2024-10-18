@@ -8,7 +8,6 @@
 <div class="register-box">
     <article class="register-container" id="register-container">
         <section class="register-form">
-            {% csrf_token %}
             <div class="form-floating mb-3" id="username-box">
                 <input name="username" class="form-control" id="floatingInput" placeholder="username">
                 <label for="floatingInput">Tên đăng nhập</label>
@@ -34,7 +33,8 @@
             {% include "Form/set-password.html" %}
 
             <div class="form-floating mb-5">
-                <button class="btn btn-primary" id="submit-button" type="submit">Xác nhận</button>
+                <button class="btn btn-primary" id="submit-button" type="submit" onclick="listen_submit()">
+                    Xác nhận</button>
             </div>
         </section>
 
@@ -56,15 +56,14 @@
     const google_btn = document.getElementById('google-button');
     const email_box = document.getElementById("email-box");
     const full_name_box = document.getElementById("full_name-box");
-    const csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken");
 
     if ("{{user.is_anonymous}}" == "False") {
         for (const element of [google_btn, email_box, full_name_box]) {
-            element.style = "display: none;";
+            element.innerHTML = "<div></div>";
         }
     }
 
-    submit.addEventListener('click', () => {
+    function listen_submit() {
         const tags_input = document.querySelectorAll("input.form-control");
         var isEmpty = false;
         tags_input.forEach(tagInput => {
@@ -83,16 +82,16 @@
         });
 
         if (!isEmpty) {
-            if (!"{{redirect}}") {
-                const container = document.getElementsByClassName("register-container");
-                const username = document.getElementsByName('username');
-                const f_name = document.getElementsByName('first_name');
-                const l_name = document.getElementsByName('last_name');
-                const email = document.getElementsByName('email');
-                const password = document.getElementsByName('password');
-                const verify_password = document.getElementsByName('verify_password');
-                const params = new URLSearchParams();
+            const container = document.getElementsByClassName("register-container");
+            const username = document.getElementsByName('username');
+            const f_name = document.getElementsByName('first_name');
+            const l_name = document.getElementsByName('last_name');
+            const email = document.getElementsByName('email');
+            const password = document.getElementsByName('password');
+            const verify_password = document.getElementsByName('verify_password');
+            const params = new URLSearchParams();
 
+            if (password[0].value == verify_password[0].value) {
                 if ("{{user.is_anonymous}}" == "True") {
                     var username_val = username[0].value;
                     var email_val = email[0].value;
@@ -113,54 +112,26 @@
                     // params.append('verify_password', verify_password[0].value);
 
                 } else {
-                    params.append('username', username[0].value);
-                    params.append('password', password[0].value);
-                    params.append('verify_password', verify_password[0].value);
+                    params.append('e', (btoa(btoa("{{user.email}}"))));
+                    params.append('p', (btoa(btoa(password[0].value))));
+                    // params.append('verify_password', verify_password[0].value);
                 }
+
                 container[0].innerHTML = `{% include 'Form/snippet.html' %}`
-
                 window.location.href = `{% url 'otp-code' %}?${params}`
+            } else {
+                const box = document.getElementById("verify_password-box")
+                let create_div = create_valid_feedback("Mật khẩu xác nhận không hợp lệ.")
+                document.getElementsByName("verify_password")[0]
+                    .className = "form-control is-invalid";
 
+                if (!box.querySelector('.invalid-feedback'))
+                    box.insertBefore(create_div, box.children[-1]);
             }
         }
-    });
-
-    function register(user_is_anonymous) {
-
     }
 
-    function otpCode_clickEnvent(user) {
-        const code_input = document.getElementsByName("otp-code");
-        const box = document.getElementById("verify_password-box");
-        var code = code_input[0].value;
-
-        if (code) {
-            document.getElementById('resend-otpcode').style = ''
-
-            fetch("{% url 'otp-code' %}", {
-                method: "POST",
-                body: JSON.stringify({
-                    "code": code,
-                    "user": user,
-                }),
-            }).then(response => {
-                let data = response.json();
-                if (response.status == 400) {
-                    data.then(json => {
-                        let create_div = create_valid_feedback(data.message);
-                        if (!box.querySelector('.invalid-feedback'))
-                            box.insertBefore(create_div, box.children[-1]);
-                    });
-                }
-            });
-
-        } else {
-            document.getElementsByName("otp-code")[0]
-                .className = "form-control is-invalid";
-        }
-    }
-
-    function create_valid_feedback(className = "invalid", content) {
+    function create_valid_feedback(content, className = "invalid") {
         let create_div = document.createElement('div');
         create_div.className = `${className}-feedback`;
         create_div.id = "validationServerFeedback";
@@ -169,37 +140,7 @@
         return create_div;
     }
 
-    async function addCountDownElement(second, elementToInner) {
-        var countDownDate = Date.now() + (second * 1000 + 1000);
 
-        // cập nhập thời gian sau mỗi 1 giây
-        var x = setInterval(function () {
-            // Lấy thời gian hiện tại
-            var now = new Date().getTime();
-
-            // Lấy số thời gian chênh lệch
-            var distance = countDownDate - now;
-
-            // Tính toán số ngày, giờ, phút, giây từ thời gian chênh lệch
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // hours = hours < 10 ? "0" + hours : hours;
-            minutes = (minutes < 10) ? "0" + minutes : minutes;
-            seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-            // HIển thị chuỗi thời gian trong thẻ p
-            elementToInner.innerHTML = minutes + ": " + seconds;
-
-            // Nếu thời gian kết thúc, hiển thị chuỗi thông báo
-            if (distance < 0) {
-                clearInterval(x);
-                elementToInner.innerHTML = "Mã đã hết hạn !";
-            }
-        }, 1000);
-    }
 </script>
 
 {% endblock signUp %}

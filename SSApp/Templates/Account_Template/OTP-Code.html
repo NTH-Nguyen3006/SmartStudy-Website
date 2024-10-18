@@ -13,8 +13,8 @@
                 </span>
             </div>
             <div class="form-floating mb-3" id="otp-box">
-                <input type="text" class="form-control" name="otp-code" id="floatingInput">
-                <label for="floatingInput">Nhập mã OTP</label>
+                <input type="text" class="form-control" name="otp-code" id="floatingInput" placeholder="OTP Code">
+                <label for="floatingInput">Nhập Mã OTP</label>
             </div>
 
             <div class="form-floating mb-3" id="button-event">
@@ -32,22 +32,15 @@
 <script>
     document.getElementById("submit-button").addEventListener("click", () => {
         const code = document.getElementsByName("otp-code")[0];
+        var user_e = "{{userInfo.e}}" || "{{user.email}}"
 
         fetch("{% url 'otp-code' %}", {
             method: "POST",
             body: JSON.stringify({
-                "code": "{{userInfo.u}}" + "_" + code.value,
-                "user": JSON.stringify({
-                    "u": "{{userInfo.u}}",
-                    "l": "{{userInfo.l}}",
-                    "f": "{{userInfo.f}}",
-                    "e": "{{userInfo.e}}",
-                    "p": "{{userInfo.p}}",
-                    "s": "{{userInfo.s}}"
-                })
+                "code": user_e + "_" + code.value,
             }),
         }).then(response => {
-            if (response.status == 201) {
+            if (response.status == 201 || response.status == 200) {
                 window.location.href = "{% url 'login' %}"
             } else {
                 response.json().then(data => {
@@ -65,8 +58,39 @@
                 });
             }
         });
-
     });
+
+    async function addCountDownElement(second, elementToInner) {
+        var countDownDate = Date.now() + (second * 1000 + 1000);
+
+        // cập nhập thời gian sau mỗi 1 giây
+        var x = setInterval(function () {
+            // Lấy thời gian hiện tại
+            var now = new Date().getTime();
+
+            // Lấy số thời gian chênh lệch
+            var distance = countDownDate - now;
+
+            // Tính toán số ngày, giờ, phút, giây từ thời gian chênh lệch
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // hours = hours < 10 ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+            // HIển thị chuỗi thời gian trong thẻ p
+            elementToInner.innerHTML = minutes + ": " + seconds;
+
+            // Nếu thời gian kết thúc, hiển thị chuỗi thông báo
+            if (distance < 0) {
+                clearInterval(x);
+                elementToInner.innerHTML = "Mã đã hết hạn !";
+            }
+        }, 1000);
+    }
 </script>
 
 {% endblock otpcode %}

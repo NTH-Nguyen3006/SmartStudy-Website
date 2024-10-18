@@ -80,10 +80,10 @@ class Chemical_ViewSet(APIView):
         try:
             data = Chemicals.objects.all()
             if req.GET.get("element"):
-                print(req.GET["element"])
+                # print(req.GET["element"])
                 element = data.get(symbol_chemical=req.GET["element"].capitalize())
                 seria = Chemical_Serializer(element, many=False)
-                print(seria.data)
+                # print(seria.data)
 
                 return Response(data=seria.data, status=status.HTTP_200_OK)
 

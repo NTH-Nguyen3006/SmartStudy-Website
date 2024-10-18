@@ -2,7 +2,7 @@ import json, base64, random
 import django.utils.timezone as timezone
 
 from django.shortcuts import redirect, render
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse, QueryDict
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -16,13 +16,13 @@ from rest_framework import status
 
 MAIL_OTPCODE_MESSAGE = """
 Xin gửi lời chào đến bạn {last_name} {first_name} đang dùng SmartStudy Website!
-Hiện tại bạn đang xác thực bạn là người dùng trên website.
+Hiện tại bạn đang cần xác thực trên website.
 
 Đây là mã xác thực của bạn: {otpCode}
 Vui lòng quay lại website để nhập mã vào để xác thực.
 
-Xin trân thành cảm ơn bạn đã ghé thăm và trải nghiệm website lần đầu tiên.
-Chúc bạn có buổi trải nghiệm tốt.
+Xin trân thành cảm ơn bạn đã ghé thăm và trải nghiệm website.
+Chúc bạn có buổi trải nghiệm tốt !
 """
 
 def signIn(req: HttpRequest):
@@ -195,80 +195,35 @@ def show_profile_user(req: HttpRequest, username):
 
 
 def reset_password_view(req: HttpRequest):
-    context = {}
-    print(req.body)
-    if req.method == "GET":        
-        if req.GET.get("code"):
-            code = req.GET.get("code")
-            decode = base64.b64decode(code).decode()
-            email = json.loads(decode).get("email")
-            
-            if User.objects.filter(email=email).exists():
-                context["email"] = email
+    if req.method == "GET":  
+        context = {}
+        if req.GET.get("e"):
+            email_encode = req.GET.get("e")
+            email_decode = base64.b64decode(email_encode).decode()
+            if '@' in email_decode:
+                if User.objects.filter(email=email_decode).exists():
+                    context["email"] = email_decode
+                    
+                else: 
+                    context["error"] = "User does not exists"
+                    return render(request=req, 
+                        template_name="Account_Template/reset-password.html", 
+                        context=context)
         
-    if req.body and req.method == "POST":
-        csrf_cookie = req.COOKIES.get('csrftoken')
-        print(csrf_cookie)
-        request = json.loads(req.body.decode())
-
-        if request.get("email", None):
-            try: 
-                email = request.get("email")
-                encode = base64.b64encode(req.body).decode()
-                urlSS = f"http://localhost:8000/reset-password/?code={encode}"
-
-                message = f"""
-Xin chào người dùng đang trải nghiệm Smart-Study Website!!!
-Hiện tại tôi thấy bạn đang có yêu cầu đặt lại mật khẩu cho tài khoản của bạn trên Smart-Study Website.
-Truy cập vào URL: {urlSS}
-"""             
-                print('send_mail')
-                send_mail(
-                    subject="YÊU CẦU THAY ĐỔI MẬT KHẨU TÀI KHOẢN BẠN",
-                    message=message,
-                    from_email="smartstudy2023edu@gmail.com",
-                    recipient_list=["nthn300607@gmail.com"],
-                    fail_silently=False,
-                )
-                return JsonResponse(
-                    {"message": "email sent successfully"}, 
-                    status=status.HTTP_201_CREATED)
-
-            except: 
-                return JsonResponse(
-                    {"message": "email sent fail"}, 
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-        if request.get("email", None) and request.get("password", None): 
-            mail = request.get("password")
-            password = request.get("password")
-            print(email, password)
-            user = User.objects.filter(email=mail).first()
-            print(user)
-            # user.set_password(password)
-            # user.save()
-            return JsonResponse(
-                    {"message": "Set password successful !!"}, 
-                    status=status.HTTP_205_RESET_CONTENT)
-
-    return render(request=req, 
+        return render(request=req, 
                   template_name="Account_Template/reset-password.html", 
                   context=context)
-
-
+        
+    
 def OTPCode(req:HttpRequest):
     if req.method == "GET":
-        user = {
-            "u": req.GET.get("u"),
-            "l": req.GET.get("l"),
-            "f": req.GET.get("f"),
-            "e": req.GET.get("e"),
-            "p": req.GET.get("p"),
-            "s": req.GET.get("size")
-        }
-        print(user)
+        if req.user.is_anonymous and not req.GET:
+            return redirect("register")
+        elif not req.user.is_anonymous and req.user.has_usable_password():
+            return redirect('home')
+        
         otpCode = random.randint(123456, 987654)
-        cache.set(key=f'{req.GET.get("u")}_{otpCode}', value=user, timeout=60*3+1)
+        cache.set(key=f'{req.GET.get("e")}_{otpCode}', value=req.GET, timeout=60*3+1)
         message = MAIL_OTPCODE_MESSAGE.format(
             last_name=req.GET.get("l"), first_name=req.GET.get("f"), otpCode=otpCode
         )
@@ -283,43 +238,59 @@ def OTPCode(req:HttpRequest):
             request=req, 
             template_name="Account_Template/OTP-Code.html", 
             context={
-                'userInfo': user
+                'userInfo': req.GET
             })
         
     if req.method == "POST":
         data = json.loads(req.body.decode())
-        print(data)
 
-        if data.get("code") and data.get("user"):
-            user_request :dict = json.loads(data.get("user"))
-            lastCode: dict = cache.get(data.get("code"))
-            
+        if data.get("code"): #and data.get("user"):
+            lastCode: QueryDict = cache.get(data.get("code"))
+            print(lastCode)
             if lastCode is not None:
-                last_name = lastCode.get("l")
-                first_name = lastCode.get("f")
-                size = base64.b64encode(
-                    bytes(lastCode.get("s"), "utf8")).decode()
-                username = lastCode.get("u")
-                email = lastCode.get("e")[: -len(size)]
-                password = base64.b64decode(lastCode.get("p"))
+                if len(lastCode) == 6:
+                    last_name = lastCode.get("l")
+                    first_name = lastCode.get("f")
+                    size = base64.b64encode(
+                        bytes(lastCode.get("size"), "utf8")).decode()
+                    username = lastCode.get("u")
+                    email = lastCode.get("e")[: -len(size)] # replace()
+                    password = base64.b64decode(lastCode.get("p"))
 
-                for i in range(2):
-                    username = base64.b64decode(username)
-                    email = base64.b64decode(email)
-                    password = base64.b64decode(password)
+                    for _ in range(2):
+                        username = base64.b64decode(username)
+                        email = base64.b64decode(email)
+                        password = base64.b64decode(password)
 
-                createUser = User.objects.create_user(
-                    username=username.decode(), 
-                    email=email.decode(),
-                    password=password.decode()
-                )
-                createUser.last_name = last_name
-                createUser.first_name = first_name
-                createUser.save()
+                    if '@' in email.decode():
+                        createUser = User.objects.create_user(
+                            username=username.decode(), 
+                            email=email.decode(),
+                            password=password.decode()
+                        )
+                        createUser.last_name = last_name
+                        createUser.first_name = first_name
+                        createUser.save()
 
-                return JsonResponse(data={
-                    "message": "Created User"
-                }, status=status.HTTP_201_CREATED)
+                        return JsonResponse(data={
+                            "message": "Created User"
+                        }, status=status.HTTP_201_CREATED)
+
+                else: #set password
+                    email_req = lastCode.get("e")
+                    password = lastCode.get("p")
+                    for _ in range(2):
+                        email_req = base64.b64decode(email_req)
+                        password = base64.b64decode(password)
+                    print(email_req, password)
+                    get_user = User.objects.get(email=email_req.decode())
+                    get_user.set_password(password.decode())
+                    get_user.username = email_req.decode()
+                    get_user.save()
+                    
+                    return JsonResponse(data={
+                        "message": "Set password Successfull"
+                    }, status=status.HTTP_200_OK)
             
         return JsonResponse(data={
             "message": "otpcode is not correct"
