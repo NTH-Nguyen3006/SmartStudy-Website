@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{%load static %}
+{% block encode %}
+<link rel="stylesheet" href="{% static 'css/encode.css' %}">
+
+<div class="container encode" style="font-weight: 500; color: #fff; background-color: #f0f0f0;">
+	<div class="mode-switch">
+		<div class="ModeRadio">
+			<label class="ModeRadio" style="border-radius: 20px 0 0 0;">
+				<input type="radio" name="mode" value="text" class="Mode"
+					style="position: absolute; opacity: 0; width: 0; height: 0;">
+				Nhập code
+			</label>
+			<label class="ModeRadio">
+				<input type="radio" name="mode" value="file" class="Mode"
+					style="position: absolute; opacity: 0; width: 0; height: 0;">
+				Nhập tệp
+			</label>
+		</div>
+		<select id="langSelect"> <!-- Thêm select box để chọn ngôn ngữ -->
+			<option value="python">Python</option>
+		</select>
+	</div>
+	<div class="content">
+		<div class="card">
+			<div class="card-body encode">
+				Kết quả: <a class="link-opacity-50-hover" id="output_url" href="{{url}}"
+					style="width: 85%; padding-left: 7px;">
+					<p class="text-break">{{url}}</p>
+				</a>
+				<button class="btn btn-primary bg-success" onclick="copyContent()"
+					style="position: absolute; right: 5px; bottom: 8px;">
+					Sao chép
+				</button>
+			</div>
+		</div>
+		<form action="{% url 'encode' %}" method="post" enctype="multipart/form-data">
+			<div class="text-input">
+				<textarea id="textArea" name="textCode" placeholder="Nhập Code"></textarea>
+			</div>
+			<div class="file-input">
+				<input type="file" name="file" id="fileInput">
+			</div>
+			<div class="Button">
+				<button class="btn-en bg-secondary-subtle" type="reset" id="ResetButton" value="reset"
+					style="color: black;">Đặt lại</button>
+				<button class="btn-en bg-primary" id="submitButton" style="color: white;">Mã
+					hóa</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const modeSwitch = document.querySelector('.mode-switch');
+		const textInput = document.querySelector('.text-input');
+		const fileInput = document.querySelector('.file-input');
+		const textArea = document.getElementById('textArea');
+		const fileInputField = document.getElementById('fileInput');
+		const submitButton = document.getElementById('submitButton');
+		const langSelect = document.getElementById('langSelect');
+		const dropContainer = document.getElementById("dropcontainer")
+		const file_Input = document.getElementById("file")
+
+		modeSwitch.addEventListener('change', function () {
+			if (modeSwitch.querySelector('input[value="file"]').checked) {
+				textInput.style.display = 'none';
+				fileInput.style.display = 'block';
+			} else {
+				textInput.style.display = 'block';
+				fileInput.style.display = 'none';
+			}
+		});
+	})
+
+	let text = document.getElementById('output_url').innerHTML;
+	const copyContent = async () => {
+		try {
+			await navigator.clipboard.writeText(text);
+			console.log('Content copied to clipboard');
+		} catch (err) {
+			console.error('Failed to copy: ', err);
+		}
+	}
+
+</script>
+
+{% endblock encode %}

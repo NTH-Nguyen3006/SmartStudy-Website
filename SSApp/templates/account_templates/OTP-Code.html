@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block otpcode %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+
+<div class="otpcode-box">
+    <article class="otpcode-container" id="otpcode-container" style="margin: 0;">
+        <section class="otpcode-form" id="otpcode-form" style="height: 20em;">
+            <div class="form-floating mb-3">
+                <span class="prompt" style="color: gray; font-size: 12px;">
+                    Vui lòng truy cập vào Gmail của bạn vừa xác minh để đăng lấy mã OTP để xác thực.
+                </span>
+            </div>
+            <div class="form-floating mb-3" id="otp-box">
+                <input type="text" class="form-control" name="otp-code" id="floatingInput" placeholder="OTP Code">
+                <label for="floatingInput">Nhập Mã OTP</label>
+            </div>
+
+            <div class="form-floating mb-3" id="button-event">
+                <div class="form-floating mb-3" id="resend-otpcode"
+                    style="display: flex; justify-content: space-between;">
+                    <a class="resend" id="resend" type="button">Gửi lại</a>
+                    <span id="countdown" style="margin-right: 10px; color: gray; font-size: 10px;"></span>
+                </div>
+                <button class="btn btn-primary" id="submit-button" type="submit">Gửi</button>
+            </div>
+        </section>
+    </article>
+</div>
+
+<script>
+    const submit_btn = document.getElementById("submit-button");
+    addCountDownElement(
+        3 * 60,
+        document.getElementById('countdown')
+    )
+
+    submit_btn.addEventListener("click", () => {
+        // submit_btn.disabled = true;
+        const code = document.getElementsByName("otp-code")[0];
+        var user_e = "{{userInfo.e}}" || "{{user.email}}"
+
+        fetch("{% url 'otp-code' %}", {
+            method: "POST",
+            body: JSON.stringify({
+                "code": user_e + "_" + code.value,
+            }),
+        }).then(response => {
+            if (response.status == 201 || response.status == 200) {
+                window.location.href = "{% url 'login' %}"
+            } else {
+                response.json().then(data => {
+                    var message = data.message;
+                    let create_div = document.createElement('div');
+                    const box = document.getElementsByName("otp-box")[0];
+
+                    create_div.className = `${className}-feedback`;
+                    create_div.id = "validationServerFeedback";
+                    create_div.textContent = message;
+
+                    if (!box.querySelector('.invalid-feedback'))
+                        box.insertBefore(create_div, box.children[-1]);
+                });
+            }
+        });
+    });
+
+    async function addCountDownElement(second, elementToInner) {
+        var countDownDate = Date.now() + (second * 1000 + 1000);
+        console.log("cout");
+
+        // cập nhập thời gian sau mỗi 1 giây
+        var x = setInterval(function () {
+            // Lấy thời gian hiện tại
+            var now = new Date().getTime();
+
+            // Lấy số thời gian chênh lệch
+            var distance = countDownDate - now;
+
+            // Tính toán số ngày, giờ, phút, giây từ thời gian chênh lệch
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // hours = hours < 10 ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+            // HIển thị chuỗi thời gian trong thẻ p
+            elementToInner.innerHTML = minutes + ": " + seconds;
+
+            // Nếu thời gian kết thúc, hiển thị chuỗi thông báo
+            if (distance < 0) {
+                clearInterval(x);
+                elementToInner.innerHTML = "Mã đã hết hạn !";
+            }
+        }, 1000);
+    }
+</script>
+
+{% endblock otpcode %}

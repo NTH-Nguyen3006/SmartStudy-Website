@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block conversion %}
+<link rel="stylesheet" href="{%static 'css/conversion.css' %}">
+
+<div style="display: flex; flex-direction: column;">
+    <form action="{% url 'conversion' %}" id="form-conversion">
+        <article style="width: 100%; display: flex; justify-content: center;">
+            <div class="form-floating conversion-select" style="width: 50%;">
+                <select class="form-select option-conversion" id="floatingSelect" name="option"
+                    aria-label="Floating label select example">
+                    <option value="Text_toMorse">Văn Bản - Morse</option>
+                    <option value="Morse_toText">Morse - Văn Bản</option>
+                    <option value="Num_toRoman">Số - La Mã</option>
+                    <option value="Roman_toNum">La Mã - Số</option>
+                    <option value="toBinary">Số - Nhị Phân</option>
+                    <option value="toBinary">Chữ - Nhị Phân</option>
+                    <option value="binary_toNumber">Nhị Phân - Số</option>
+                    <option value="binary_toText">Nhị Phân - Chữ</option>
+                </select>
+                <label for="floatingSelect">Chọn Phương Thức</label>
+            </div>
+        </article>
+        <br>
+        <article style="width: 100%;">
+            <div class="container">
+                <form action="">
+                    <div class="input">
+                        <div class="form-floating conversion">
+                            <textarea class="form-control conversion" placeholder="Leave a comment here" name="input"
+                                id="floatingTextarea2"></textarea>
+                            <label for="floatingTextarea2">Đầu Vào</label>
+                        </div>
+
+                        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                            class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+
+                        <div class="form-floating conversion">
+                            <textarea class="form-control conversion" placeholder="Leave a comment here"
+                                style="background-color: #fff;" id="floatingTextarea2Disabled" disabled></textarea>
+                            <label for="floatingTextarea2Disabled">Kết Quả</label>
+                        </div>
+                    </div>
+
+                    <div class="button-submit-reset">
+                        <button type="reset" class="btn btn-info" value="reset" id="ResetButton"
+                            style="margin-right: 40px;">
+                            Đặt lại</button>
+
+                        <button type="submit" class="btn btn-warning">Chuyển đổi</button>
+                    </div>
+                    <br>
+                </form>
+            </div>
+        </article>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById('form-conversion');
+    const selectOption = document.getElementById('floatingSelect');
+    const textarea = document.getElementById('floatingTextarea2');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData();
+
+        formData.append('selected', selectOption.value)
+        formData.append('input', textarea.value)
+
+        fetch("{% url 'conversion' %}", {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const result = data.result;
+                const textArea_disable = document.getElementById('floatingTextarea2Disabled')
+                textArea_disable.value = result
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    })
+</script>
+
+{% endblock conversion %}

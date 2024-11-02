@@ -1,0 +1,223 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block chemical %}
+<link rel="stylesheet" href="{%static 'css\chemical.css' %}">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+<div class="Chemical-periodic table" style="width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+flex-wrap: wrap;
+overflow-x: auto;">
+    <article style="display: flex; justify-content: center;">
+        <h1>Bảng Tuần Hoàn Hóa Học</h1>
+        <br>
+    </article>
+
+    <article class="table-chemical" style="display: flex; flex-wrap: wrap; justify-content: center;">
+        <div class="chemical-periodic-table">
+            <div class="table-chemicals" id="table">
+                {% for element in element1 %}
+                <a class="element element-{{element.id}} _{{element.group}}" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('{{element.symbol_chemical}}')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">{{element.id}}</p>
+                            <h5 style="margin: 0;">{{element.symbol_chemical}}</h5>
+                            <p class="element-name">
+                                {{element.name_of_chemical}}</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                {% if element.atomic_mass < 10 %} {{element.atomic_mass | floatformat:3}} {% else %}
+                                    {{element.atomic_mass | floatformat:2}} {% endif %} </p>
+                                    {% if element.electronegativity != 0 %}
+                                    <p class="electronegativity">
+                                        {{element.electronegativity}}</p>
+                                    {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+
+                <div class="element element-Lanthanum"
+                    style="font-size: 13px; font-weight: 500; text-align: center; color: rgb(157, 4, 4);">
+                    Họ Lanthanum
+                </div>
+
+                {% for element in element2 %}
+                <a class="element element-{{element.id}} _{{element.group}}" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('{{element.symbol_chemical}}')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">{{element.id}}</p>
+                            <h5 style="margin: 0;">{{element.symbol_chemical}}</h5>
+                            <p class="element-name">
+                                {{element.name_of_chemical}}</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                {% if element.atomic_mass < 10 %} {{element.atomic_mass | floatformat:3}} {% else %}
+                                    {{element.atomic_mass | floatformat:2}} {% endif %} </p>
+                                    {% if element.electronegativity != 0 %}
+                                    <p class="electronegativity">
+                                        {{element.electronegativity}}</p>
+                                    {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+
+                <div class="element element-Actinium"
+                    style="font-size: 13px ;font-weight: 500; text-align: center; color: rgb(157, 4, 4);">
+                    Họ Actinium
+                </div>
+
+                {% for element in element3 %}
+                <a class="element element-{{element.id}} _{{element.group}}" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('{{element.symbol_chemical}}')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">{{element.id}}</p>
+                            <h5 style="margin: 0;">{{element.symbol_chemical}}</h5>
+                            <p class="element-name">
+                                {{element.name_of_chemical}}</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [{{element.atomic_mass | floatformat:0}}]</p>
+                            {% if element.electronegativity != 0 %}
+                            <p class="electronegativity">
+                                {{element.electronegativity}}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="table-chemicals-2">
+                <article class="Hydrogen" style="width: auto;">
+                    <div class="hydrogen hydrogen-1">\[R_2O\]</div>
+                    <div class="hydrogen hydrogen-2">\[RO\]</div>
+                    <div class="hydrogen hydrogen-3">\[R_2O_3\]</div>
+                    <div class="hydrogen hydrogen-4">\[RO_2\]</div>
+                    <div class="hydrogen hydrogen-5">\[R_2O_5\]</div>
+                    <div class="hydrogen hydrogen-6">\[RO_3\]</div>
+                    <div class="hydrogen hydrogen-7">\[R_2O_7\]</div>
+                    <div class="hydrogen hydrogen-8">\[RO_4\]</div>
+                    <div class="hydrogen hydrogen-9">\[R_2O\]</div>
+                    <div class="hydrogen hydrogen-10">\[RO\]</div>
+                    <div class="hydrogen hydrogen-11">\[R_2O_3\]</div>
+                    <div class="hydrogen hydrogen-12">\[RO_2\]</div>
+                    <div class="hydrogen hydrogen-13">\[R_2O_5\]</div>
+                    <div class="hydrogen hydrogen-14">\[RO_3\]</div>
+                    <div class="hydrogen hydrogen-15">\[R_2O_7\]</div>
+                </article>
+
+                <article class="Lanthanum-column" style="margin-top: 10px;">
+                    <div class="element lanthanum surname-chemical"
+                        style="width: 90px; display: flex; align-items: center;">Họ
+                        Lanthanum</div>
+                    {% for element in lanthanum %}
+                    <a class="element lanthanum element-{{element.id}} _{{element.group}}" type="button"
+                        data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                        onclick="getElement_Info('{{element.symbol_chemical}}')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">{{element.id}}</p>
+                                <h5 style="margin: 0;">{{element.symbol_chemical}}</h5>
+                                <p class="element-name">
+                                    {{element.name_of_chemical}}</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> {% if element.atomic_mass < 10 %} {{element.atomic_mass |
+                                        floatformat:3}} {% else %} {{element.atomic_mass | floatformat:2}} {% endif %}
+                                        </p>
+                                        {% if element.electronegativity != 0 %}
+                                        <p class="electronegativity">
+                                            {{element.electronegativity}}</p>
+                                        {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </article>
+
+                <article class="Actinium-column" style="margin-bottom: 10px;">
+                    <div class="element actinium surname-chemical"
+                        style="width: 90px; display: flex; align-items: center;">Họ Actinium
+                    </div>
+                    {% for element in actinium %}
+                    <a class="element actinium element-{{element.id}} _{{element.group}}" type="button"
+                        data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                        onclick="getElement_Info('{{element.symbol_chemical}}')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">{{element.id}}</p>
+                                <h5 style="margin: 0;">{{element.symbol_chemical}}</h5>
+                                <p class="element-name">
+                                    {{element.name_of_chemical}}</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> {% if element.atomic_mass < 10 %} {{element.atomic_mass |
+                                        floatformat:3}} {% else %} {{element.atomic_mass | floatformat:2}} {% endif %}
+                                        </p>
+                                        {% if element.electronegativity != 0 %}
+                                        <p class="electronegativity">
+                                            {{element.electronegativity}}</p>
+                                        {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </article>
+            </div>
+        </div>
+
+    </article>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Thông Tin Nguyên Tố Hóa Học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p> <strong>Người phát hiện: </strong> ... </p>
+                <p> <strong>Tên nguyên tố: </strong> ... </p>
+                <p> <strong>Kí hiệu: </strong> ... </p>
+                <p> <strong>Thể: </strong> ... </p>
+                <p> <strong>Phân lớp: </strong> ... </p>
+                <p> <strong>Nhóm: </strong> ... </p>
+                <p> <strong>Chu kì: </strong> ... </p>
+                <p> <strong>Phân loại: </strong> ... </p>
+                <p> <strong>Khối lượng riêng: </strong> ... </p>
+                <p> <strong>Nhiệt độ sôi: </strong> ...</p>
+                <p> <strong>Nhiệt độ nóng chảy: </strong> ...</p>
+                <p> <strong>Độ âm điện: </strong> ...</p>
+                <p> <strong>Số oxi hóa: </strong> ...</p>
+                <p> <strong>Cấu hình (e): </strong> ... </p>
+                <p> <strong>Mô tả hình dạng xuất hiện: </strong> ...</p>
+                <img src="{%static 'Image/logo/og-image.jpg' %}" alt="" style="width: 100%">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'Scripts.js' %}"></script>
+
+{% endblock chemical %}
