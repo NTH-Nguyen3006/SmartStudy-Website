@@ -11,7 +11,7 @@ endpoint_API = [
     path('api/chemical/', api_views.Chemical_ViewSet.as_view(), name="Chemical API")
 ]
 
-urls_account = [
+endpoint_accounts = [
     path('login/', view=account_views.signIn, name='login'),
     path('register/', account_views.signUp, name='register'),
     path('logout/', view=account_views.logout_user, name="logout"),
@@ -21,7 +21,7 @@ urls_account = [
     path('otp-code/', account_views.OTPCode, name="otp-code"),
 ]
 
-endpoint_site = [
+endpoint_sites = [
     path('', views.home, name="home"),
     
     path('encode/', views.Encode, name="encode"),
@@ -44,4 +44,4 @@ endpoint_site = [
 ]
 
 
-urlpatterns: list = endpoint_API + endpoint_site + urls_account
+urlpatterns: list = endpoint_API + endpoint_sites + endpoint_accounts

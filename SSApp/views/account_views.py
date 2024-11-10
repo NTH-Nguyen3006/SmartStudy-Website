@@ -1,7 +1,7 @@
 import json, base64, random
 
 from django.shortcuts import redirect, render
-from django.http import HttpRequest, HttpResponse, JsonResponse, QueryDict
+from django.http import HttpRequest, JsonResponse, QueryDict
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail

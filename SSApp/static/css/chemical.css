@@ -51,6 +51,11 @@ Chemical-periodic.table {
     max-width: 100%;
 }
 
+.table-chemicals-2,
+#table {
+    padding: 0 !important;
+}
+
 .table-chemical-2 {
     display: flex;
     flex-wrap: wrap;

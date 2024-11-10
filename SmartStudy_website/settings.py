@@ -191,5 +191,7 @@ GENAI_KEYS = [
 ]
 
 OPENAI_KEY = ""
+
+GITHUB_KET = "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"
 # GITHUB_KEY = 
 

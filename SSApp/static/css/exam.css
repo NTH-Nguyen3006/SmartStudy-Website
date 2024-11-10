@@ -236,6 +236,11 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
 }
 
 @media screen and (max-width: 768px) {
+    div.image-box {
+        width: 8.5em !important;
+        height: 11em !important;
+    }
+
     div.col-md-8.exam {
         flex-shrink: 1 !important;
         padding-right: 1px;
@@ -282,5 +287,11 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
     .orther-box {
         width: 100%;
     }
+}
 
+@media screen and (max-width: 416px) {
+    div.image-box {
+        width: 7em !important;
+        height: 10em !important;
+    }
 }

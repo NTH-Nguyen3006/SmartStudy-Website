@@ -5,7 +5,7 @@ GENAI_KEYS: list = settings.GENAI_KEYS
 print(GENAI_KEYS)
 
 def generateResponse(user_message, RETRIES=len(GENAI_KEYS)) -> dict | None:
-    localData = open(file="SSApp\Plugin\Handle\local_data.txt", mode="r", encoding="utf8").read()
+    localData = open(file="./local_data.txt", mode="r", encoding="utf8").read()
     prompt = f'''
 {localData}
     

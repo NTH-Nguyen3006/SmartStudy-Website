@@ -1,23 +1,14 @@
-import requests, json, os, threading
-
-from django.shortcuts import redirect, render
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse, HttpRequest
+from django.shortcuts import render
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core.mail import send_mail
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib import messages
 
 from ..plugin import sschat, encodePython, conversion
 from ..models import Irregular_Verb, Eng_Dictionary, Chemicals, Exam, Q
-from ..serializers import *
-
 
 # Views
 def home(req):
     if req.method == "GET":
-        print(req.user)
-        return render(req, 'Home.html')
+        return render(req, 'home.html')
     
 
 def SSChat(req):
@@ -34,7 +25,122 @@ def SSChat(req):
                     result_text += part["text"]
                 return JsonResponse({'reply': result_text})
             return JsonResponse({"message": "request failed !!"})
+
+
+def Math(req):
+    if req.method == 'GET':
+        return render(req, "template/maintenance.html")
+
+
+def Physics(req):
+    if req.method == 'GET':
+        return render(req, "template/maintenance.html")
+    
+
+def EngDictionary_view(req):
+    if req.method == 'GET':
+        try:
+            data = Eng_Dictionary.objects.all()
+            if req.GET.get('word'):
+                _input = req.GET['word']
+                data = data.filter(word=_input.lower()).first()
+                context = {
+                    "word": _input,
+                    "mean": data.mean
+                }
+                return JsonResponse(data=context, status=200)
+            return render(req, "template/eng_dictionary.html")
         
+        except Exception as e:
+            print(e)
+            return render(req, "template/eng_dictionary.html", status=500)
+            
+
+def trac_nghiem_view(req, endpoint=None):
+    template_path = "template/subject-test/" 
+    if req.method == "GET":
+        if endpoint != None:
+            templates = {
+            #   endpoint: html
+                "mon-hoc": "subject.html",
+                'kiem-tra-15-phut': 'quiz.html',
+                # 'kiem-tra-giua-hoc-ki-1': "midterm_exam.html",
+                'kiem-tra-hoc-ki-1': 'final_exam_1.html',
+                'danh-gia-nang-luc': 'competency_test.html',
+                'danh-gia-tu-duy': 'thinking_test.html',
+            } 
+
+            return render(request=req, 
+                        template_name=f"{template_path}{templates[endpoint]}")
+    
+    return render(request=req, 
+                  template_name=f"{template_path}subject_test.html")
+
+    
+def Python(req):
+    if req.method == 'GET':
+        return render(req, "template/python.html")
+
+
+def IrregularVerb(req):
+    if req.method == 'GET':
+        data = Irregular_Verb.objects.all()
+        
+        if req.GET.get('search'):
+            _input = req.GET['search']
+
+            # docs tại https://docs.djangoproject.com/en/5.0/topics/db/queries/
+            data = Irregular_Verb.objects.filter(
+                Q(verb1__contains=_input) | Q(verb2__contains=_input) |
+                Q(verb3__contains=_input) | Q(mean__contains=_input)
+            )
+        context = {'words': data}
+        return render(req, "template/irregularVerb.html", context=context)
+ 
+
+def Chemical(req):
+    return render(req, "template/chemical.html")
+
+
+def Exam_view(req, endpoint=None, page=1):
+    context = {}
+    if req.method == 'GET':
+        if not endpoint:
+            if req.GET.get("show"): # người dùng ấn vào 1 đề thi bất kì
+                data_exam = Exam.objects.get(content_path=req.GET["show"])
+                context["exam"] = data_exam
+                context["orther_article"] = Exam.objects.filter(
+                    Q(path_render=data_exam.path_render)
+                ).order_by('?')[:10] # lấy 10 đề thi liên quan
+                return render(req, "template/exams/showE.html", context=context)
+            
+            elif req.GET.get("search"):
+                _input = req.GET['search']
+                context['search'] = f'search={_input}'
+                if _input.isdigit():
+                    data_exam = Exam.objects.filter(id=_input)
+                else:
+                    data_exam = Exam.objects.filter(content__icontains=_input)
+            else: 
+                return render(req, r"template/exams/homeE.html", context=context)
+
+        else:
+            data_exam = Exam.objects.filter(path_render=endpoint)
+        paginator = Paginator(data_exam, 20) #show mỗi page là 20 item
+        page_number = req.GET.get("page") 
+        try:
+            pages = paginator.page(page_number)
+        except PageNotAnInteger:
+            # Nếu page_number không thuộc kiểu integer, trả về page đầu tiên
+            pages = paginator.page(1)
+        except EmptyPage:
+            # Nếu page không có item nào, trả về page cuối cùng
+            pages = paginator.page(paginator.num_pages)
+
+        context['pages'] = pages
+
+        return render(req, "template/exams/exams.html", context=context)
+
 
 def Encode(req):
     if req.method == "GET":
@@ -78,80 +184,7 @@ def Encode(req):
                 
                 return render(req, 'template/encode.html')
         except: 
-            raise HttpResponseBadRequest('Lỗi người dùng nhập vào!!!', status=422)
-
-
-def Math(req):
-    if req.method == 'GET':
-        return render(req, "template/maintenance.html")
-
-
-def Physics(req):
-    if req.method == 'GET':
-        return render(req, "template/maintenance.html")
-    
-
-def EngDictionary_view(req):
-    if req.method == 'GET':
-        try:
-            data = Eng_Dictionary.objects.all()
-            if req.GET.get('word'):
-                _input = req.GET['word']
-                data = data.filter(word=_input.lower()).first()
-                context = {
-                    "word": _input,
-                    "mean": data.mean
-                }
-                return JsonResponse(data=context, status=200)
-            return render(req, "template/eng_dictionary.html")
-        
-        except Exception as e:
-            print(e)
-            return render(req, "template/eng_dictionary.html", status=500)
-            
-
-def trac_nghiem_view(req, endpoint=None):
-    template_path = "template/Subject-Test/" 
-    if req.method == "GET":
-        if endpoint != None:
-            templates = {
-            #   endpoint: html
-                "mon-hoc": "subject.html",
-                'kiem-tra-15-phut': 'quiz.html',
-                # 'kiem-tra-giua-hoc-ki-1': "midterm_exam.html",
-                'kiem-tra-hoc-ki-1': 'final_exam_1.html',
-                'danh-gia-nang-luc': 'competency_test.html',
-                'danh-gia-tu-duy': 'thinking_test.html',
-            } 
-
-            return render(request=req, 
-                        template_name=f"{template_path}{templates[endpoint]}")
-    
-    return render(request=req, 
-                  template_name=f"{template_path}subject_test.html")
-
-
-    
-def Python(req):
-    if req.method == 'GET':
-        return render(req, "template/python.html")
-    
-
-def IrregularVerb(req):
-    if req.method == 'GET':
-        data = Irregular_Verb.objects.all()
-        
-        if req.GET.get('search'):
-            _input = req.GET['search']
-
-            # docs tại https://docs.djangoproject.com/en/5.0/topics/db/queries/
-            data = Irregular_Verb.objects.filter(
-                Q(verb1__contains=_input) | Q(verb2__contains=_input) |
-                Q(verb3__contains=_input) | Q(mean__contains=_input)
-            )
-        context = {'words': data}
-        return render(req, "template/irregularVerb.html", context=context)
-
+            raise HttpResponseBadRequest('Lỗi người dùng nhập vào!!!', status=422)    
 
 def conversions(req):
     context = {}
@@ -164,47 +197,3 @@ def conversions(req):
             context['result'] = result
             return JsonResponse(context)
     return render(req, "template/conversion.html", context=context)
-    
-
-def Chemical(req):
-    return render(req, "template/chemical.html")
-
-
-def Exam_view(req, endpoint=None, page=1):
-    context = {}
-    if req.method == 'GET':
-        if not endpoint:
-            if req.GET.get("show"): # người dùng ấn vào 1 đề thi bất kì
-                data_exam = Exam.objects.get(content_path=req.GET["show"])
-                context["exam"] = data_exam
-                context["orther_article"] = Exam.objects.filter(
-                    Q(path_render=data_exam.path_render)
-                ).order_by('?')[:10] # lấy 10 đề thi liên quan
-                return render(req, "template\exams\showE.html", context=context)
-            
-            elif req.GET.get("search"):
-                _input = req.GET['search']
-                context['search'] = f'search={_input}'
-                if _input.isdigit():
-                    data_exam = Exam.objects.filter(id=_input)
-                else:
-                    data_exam = Exam.objects.filter(content__icontains=_input)
-            else: 
-                return render(req, r"template\exams\homeE.html", context=context)
-
-        else:
-            data_exam = Exam.objects.filter(path_render=endpoint)
-        paginator = Paginator(data_exam, 20) #show mỗi page là 20 item
-        page_number = req.GET.get("page") 
-        try:
-            pages = paginator.page(page_number)
-        except PageNotAnInteger:
-            # Nếu page_number không thuộc kiểu integer, trả về page đầu tiên
-            pages = paginator.page(1)
-        except EmptyPage:
-            # Nếu page không có item nào, trả về page cuối cùng
-            pages = paginator.page(paginator.num_pages)
-
-        context['pages'] = pages
-
-        return render(req, "template\exams\exams.html", context=context)

@@ -1,0 +1,3 @@
+content = requests.get(url="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/466015182_3772080006379950_8601841564397759254_n.jpg?stp=cp6_dst-jpg&_nc_cat=111&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=SK_68iFemVMQ7kNvgHB1flH&_nc_zt=23&_nc_ht=scontent.fsgn2-6.fna&_nc_gid=AgjhCggwdjgTAtGPj1yjLio&oh=00_AYCAoF7zKXkXXJHSa1sQUYmPyWifPF8xBSTZhJwBVtKszg&oe=67354982").content
+    # image_base64 = base64.b64encode(content).decode('utf-8')
+    # print(image_base64)

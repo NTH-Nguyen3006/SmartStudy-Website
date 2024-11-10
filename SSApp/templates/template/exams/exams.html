@@ -1,4 +1,4 @@
-{% extends 'template\exams\indexE.html' %}
+{% extends 'template/exams/indexE.html' %}
 {% load static %}
 
 {% block examItem %}
@@ -11,8 +11,10 @@
         <div class="card mb-3 exam">
             <div class="row exam">
                 <div class="col-md-3" style="height: 100%;">
-                    <img style="height: 100%; width: 100%;" src="{% static 'Image/ImageExam/' %}{{itemE.URL_image}}"
-                        class="img-fluid rounded-start" alt="{{itemE.content}}">
+                    <div class="image-box" style="width: 9rem; height: 13em;"><img style="height: 100%; width: 100%;"
+                            src="https://raw.githubusercontent.com/SmartStudy-ChatBot/SSWeb-data/main/exams-images/{{itemE.URL_image}}"
+                            class="img-fluid rounded-start" alt="{{itemE.content}}"></div>
+
                 </div>
                 <div class="col-md-8 exam">
                     <div class="card-body exam">
