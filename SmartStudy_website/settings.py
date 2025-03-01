@@ -184,8 +184,6 @@ GENAI_KEYS = [
     "API Key 2"
 ] 
 
-OPENAI_KEY = ""
+# OPENAI_KEY = ""
 
-GITHUB_KEY = "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"
-# GITHUB_KEY = 
-
+GITHUB_KEY = "Your GitHub Key"
