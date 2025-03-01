@@ -1,0 +1,120 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block login %}
+
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+<script src="{% static 'Scripts.js' %}"></script>
+
+<div class="login-box" style="width: 100%;">
+    <article class="login-container">
+        <section>
+            <div class="form-floating mb-3" id="account-box">
+                <input type="text" class="form-control" name="account" id="floatingInput" placeholder="name@example.com"
+                    onkeyup="listen_onkeyup()" autofocus>
+                <label for="floatingInput">Email / Tên tài khoản</label>
+            </div>
+            <div class="form-floating mb-3" id="password-box">
+                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password"
+                    onkeyup="listen_onkeyup()">
+
+                <label for="floatingPassword">Mật khẩu</label>
+            </div>
+            <input class="form-floating mb-3 show_password" type="checkbox" onclick="show_password()">Hiển thị mật khẩu
+            <div class="form-floating mb-3">
+                <a href="{% url 'reset-password' %}">Quên mật khẩu</a>
+            </div>
+            <div class="form-floating mb-5">
+                <button class="btn btn-primary" id="submit-button" type="submit">Đăng nhập</button>
+            </div>
+        </section>
+
+        <section class="form-floating mb-5">
+            <a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'register' %}"
+                class="btn btn-light google-sign-in">
+                <div class="google-logo">
+                    <img class="btn-logo" width="25px" height="25px" src="{% static 'Image\logo\google-logo.png' %}">
+                </div>
+                <span style="font-weight: 500;">Đăng nhập bằng Google</span>
+            </a>
+        </section>
+
+        <section class="form-floating">
+            <b>Bạn chưa có tài khoản?</b>
+            <a href="{% url 'register' %}">Tạo tài khoản</a>
+        </section>
+    </article>
+</div>
+
+<script>
+    const account = document.getElementsByName("account");
+    const password = document.getElementsByName("password");
+    const password_box = document.getElementById("password-box");
+
+    document.getElementById("submit-button").addEventListener("click", () => {
+        if (account[0].value && password[0].value) {
+            account_value = account[0].value;
+            password_value = password[0].value;
+
+            fetch("{% url 'login' %}", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify({
+                    "account": account_value,
+                    "password": password_value,
+                }),
+            }).then(response => {
+                if (response.status == 200) {
+                    window.location.href = "{% url 'home' %}"
+                } else {
+                    let create_p = document.createElement('p');
+                    create_p.textContent = "Có vẻ tên đăng nhập hoặc mật khẩu không đúng";
+                    create_p.style = "color: red; font-size: 11px; margin: 0";
+
+                    if (!password_box.querySelector('.invalid-feedback')) {
+                        password_box.insertBefore(create_p, password_box.children[-1]);
+                    }
+                }
+            });
+        } else {
+            if (!account[0].value) {
+                const account_form = document.getElementById("account-box");
+                addElementError(account_form, account);
+            }
+            if (!password[0].value) {
+                const password_form = document.getElementById("password-box");
+                addElementError(password_form, password);
+            }
+        }
+    });
+
+    function addElementError(element, input_name) {
+        input_name[0].className = "form-control is-invalid";
+
+        let create_div = document.createElement('div');
+        create_div.className = "invalid-feedback";
+        create_div.id = "validationServerFeedback";
+        create_div.textContent = "Vui lòng nhập đủ thông tin để đăng nhập";
+
+        if (!element.querySelector('.invalid-feedback')) {
+            element.insertBefore(create_div, element.children[-1]);
+        }
+    }
+
+    function create_valid_feedback(content, className = "invalid") {
+        let create_div = document.createElement('div');
+        create_div.className = `${className}-feedback`;
+        create_div.id = "validationServerFeedback";
+        create_div.textContent = content;
+
+        return create_div;
+    }
+
+    function listen_onkeyup() {
+        document.getElementsByClassName("invalid-feedback")[0].remove();
+        document.querySelector("input.form-control.is-invalid")
+            .classList.remove("is-invalid");
+    }
+</script>
+
+{% endblock login %}

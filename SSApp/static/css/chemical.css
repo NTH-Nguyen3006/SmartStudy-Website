@@ -1,0 +1,237 @@
+:root {
+    --size-box-element: 70px;
+}
+
+.content-page {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+div.Chemical-periodic.table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-x: auto;
+}
+
+.box-content {
+    display: block;
+}
+
+.content-page h1 {
+    color: #2f8079;
+}
+
+figure.navbar-content-chemical {
+    width: 100%;
+}
+
+ul.nav.nav-underline {
+    width: 100%;
+}
+
+Chemical-periodic.table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-x: auto;
+}
+
+#table {
+    display: grid;
+    grid-template-columns: repeat(17, auto) 1fr;
+    /* width: 90%; */
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.table-chemicals-2,
+#table {
+    padding: 0 !important;
+}
+
+.table-chemical-2 {
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(17, auto) 1fr;
+    /* width: 90%; */
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.actinium,
+.element-118,
+.hydrogen {
+    border-bottom: #3a3a3a solid 1px;
+}
+
+p.electronegativity,
+p.atomic-mass {
+    float: inline-end;
+}
+
+.hydrogen-8 {
+    width: calc(var(--size-box-element) * 3) !important;
+}
+
+.element-1,
+.element-4,
+.element-12,
+.element-2,
+.element-10,
+.element-18,
+.element-36,
+.element-54,
+.element-86,
+.element-118,
+.hydrogen-15 {
+    border-right: #3a3a3a solid 1px;
+}
+
+.element._1\(A\),
+.element._2\(A\),
+.element.element-2._8\(A\) {
+    background-color: #56e3d7;
+}
+
+.element._1\(B\),
+.element._2\(B\),
+.element._3\(B\),
+.element._4\(B\),
+.element._5\(B\),
+.element._6\(B\),
+.element._7\(B\),
+.element._8\(B\),
+.element.element-Lanthanum,
+.element.element-Actinium,
+.element.lanthanum.surname-chemical,
+.element.actinium.surname-chemical {
+    background-color: #fcdf5d;
+}
+
+.element._3\(A\),
+.element._4\(A\),
+.element._5\(A\),
+.element._6\(A\),
+.element._7\(A\),
+.element._8\(A\) {
+    background-color: #eb93e3;
+}
+
+.element.lanthanum,
+.element.actinium {
+    background-color: #ffd49b;
+}
+
+.element,
+.hydrogen {
+    width: var(--size-box-element);
+    height: var(--size-box-element);
+    /* margin: 5px; */
+    border-left: #3a3a3a solid 1px;
+    border-top: #3a3a3a solid 1px;
+    /* background-color: #ffd49b; */
+    border-radius: 2px;
+    text-decoration: none;
+    color: black;
+}
+
+.element-2 {
+    grid-column-start: -2;
+}
+
+.element-5,
+.element-13 {
+    grid-column-start: 13;
+}
+
+.table-chemicals {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.Actinium-column,
+.Lanthanum-column,
+.Hydrogen {
+    display: flex;
+}
+
+.element-id,
+.element-name {
+    margin: 0;
+    font-size: 10px;
+}
+
+.element-name {
+    font-weight: 500;
+}
+
+p.atomic-mass {
+    font-size: 10px;
+    margin-bottom: 0;
+    float: inline-end;
+}
+
+p.electronegativity {
+    font-size: 10px;
+    margin-top: 2px;
+    float: inline-end;
+}
+
+content-1 {
+    width: 40%;
+    margin-left: 3px;
+}
+
+.content-2 {
+    width: 50%;
+    margin-right: 3px;
+}
+
+
+.hydrogen {
+    width: var(--size-box-element);
+    height: auto;
+    background-color: #fff;
+}
+
+.surname-chemical {
+    font-weight: bold;
+}
+
+.modal-body p {
+    margin-bottom: 5px;
+}
+
+.table {
+    padding: 0;
+}
+
+@media screen and (max-width: 1100px) {
+    .chemical-periodic-table {
+        /* width: 150%; */
+        overflow-x: auto;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .content-page {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    ul.nav.nav-underline {
+        display: flex;
+        width: 200%;
+        overflow-x: scroll;
+    }
+}

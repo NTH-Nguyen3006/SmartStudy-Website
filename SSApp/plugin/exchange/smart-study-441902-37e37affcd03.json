@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "smart-study-441902",
+  "private_key_id": "37e37affcd03ab3e1dad9dc76d9a38596614f2fa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCey9kxdDU++uXB\nxkteWWLMa2UzmGCTKDk/Ieb49mz7Ry335hUVj6OCR63z3OKytPGFiVRAJryqWKu9\nusMqPXGeyzQtxm8CC55KBBG6yziNGnJNLzjcylsSxvt+hCCp2JFebIr674LfnvJf\nMNMDYVVBeFGNGpniQS5FXZ6tnpMaA4MXUYZ+mkpjBth5lwiK49tlQ3SYTqJmECXh\nzkL7V6WbXkAp2qUpZSut/WkZC67f9f29orH2l3CmEOFld81GIi2bRDrhcJ+x1wD9\nb4NccuGN93BlYYWUnZdZJqXFlAQf5+vmm0cgtcWeXr/8qtad3im8XrRbf+7UQmJz\nzaL8y2SNAgMBAAECggEAHPC53LF5IslHJlGlWsSfpPHNt+GFeExUYpUjKyx+IC2Q\nyyU7onpTKmM16MPQ7RDdE6E7oZVtvP38DtAC0afxFSejktQfVxgW+RZUxN5UqCKx\nwi9hBZw7jOiG3T/nVA0MMVFG4wTTrT2inoafbnZGu2/aLQU0FnAaprmxOaM03ACO\nNd3wQx3wk9L+X4c5wBo7H6QZbbWYeyE/wA/Bh1kL9WBRRZP7KgKXs/ilyxtB+O6W\ngeHY0Y1XfiXCFAIhSiaZnW6+gigFEvBUydwYSq91aQgTgz/cjiE6jrlgS5XIzQOU\nr6CWJclyCmG9hZV37f12behRHNZnnmVv4P7cod1eYQKBgQDXLei2d9KA/7ql5KO6\nydufITQ3e3PmWaw87drMl9knha8jiC90EX70i20ydXFKiYQm4ReFIGyKJy72Aw7n\nDHv89Im1ahcefjGfsMENpxxIhwJ7xYqBBpK/9iodBq4KLd35MlZo6pT4ItimIk84\nFUcFphVkoAydkOAKPckQ7Vbj0wKBgQC867iVtIPOfnv9X4EUU7jy1oJFIgT0RiM0\niq5TxYSYLnR/yNJxF/KGNkZF/ZnEyKEtGWgjVUORt1qglkYmQxUMYqYIRq9BLmLb\nVkPC5QLrfgI7ilWQg81FIF991kJNj7HHFTTMPgY6n/cZhkZpIhvu3C+cyCY7uhox\nqiC98Lg6HwKBgQC8NcilyTqTYJr2PX1EhQkXL+jHWrDuW6L+jCFj8LGdEx40mwq+\noAsGhOmXSAg25P91Lk7vP4QQduNphRVE3LOadp340vmzzzdCcUz6zx87BPQUJJ3X\n61LymrMNPml+N84/CFtyWzS/sWMENWBLMrkzZKizohZGv5BnBNHYf3APxwKBgAXk\nZDFnG+VI1J0maWQ06EPKpO17DiSAO4DcAmvicSw95qxFmyqj0JCXCMIOEsmsaDp7\n3F+dvSnCSjVP+oge930XZo5DhhvGUpb8rchaVCj8GR26RsjnE3Pgepn2IMNChAzt\ngGQOWytg6dgF9BQ7WBuvCl0dcPPT7hU2dSb3ZweJAoGBAJCtCQqmCNH5yhYfHUKL\nSXISresmEFXxvsxlsyyC7loYfXv/5Ie0Pg9gncoO+cTAK6VRKya52OTpi1atoIaq\nMYVIlOxlXgfkQwL4AtebPVvipodOw4+qhx+SzgJvV9/3y6bFTXjqtLDReNeR8UIT\nC4GKuwmDKPfXfZ0K5iajk5tv\n-----END PRIVATE KEY-----\n",
+  "client_email": "ss-driver@smart-study-441902.iam.gserviceaccount.com",
+  "client_id": "103811516897154810482",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ss-driver%40smart-study-441902.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

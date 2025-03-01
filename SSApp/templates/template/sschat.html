@@ -1,0 +1,430 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block sschat %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    .container {
+        width: calc(80% + 15px);
+        margin: 0 auto;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+    #chatBox {
+        border: 2px solid #7a7171;
+        padding: 10px;
+        margin-top: 10px;
+        height: 60vh;
+        border-radius: 5px;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+    }
+
+    #chatForm {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 10px;
+        margin-top: 20px;
+        border: #3a3a3a solid 1px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .action {
+        display: flex;
+        width: 100%;
+        gap: 20px;
+        padding: 5px;
+    }
+
+    #message {
+        /* border-bottom: 1px solid #ccc; */
+        /* padding: 10px; */
+        /* margin-top: 20px; */
+        white-space: pre-wrap;
+        width: 100%;
+        outline: none;
+        border: none;
+        overflow-y: scroll;
+
+    }
+
+    #message:focus {
+        outline: none;
+    }
+
+    #message::-webkit-scrollbar {
+        display: none;
+    }
+
+    .user-message {
+        text-align: right;
+        margin: 10px;
+        color: blue;
+    }
+
+    .bot-message {
+        text-align: left;
+        /* margin: 10px; */
+        color: green;
+    }
+
+    .message-relply-box {
+        border: #3a3a3a 1px solid;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    p {
+        margin-bottom: 0 !important;
+    }
+
+    .submit-button {
+        border: none;
+        padding: 0;
+        background-color: #fff;
+        transition: all 1s ease-out;
+        opacity: 1;
+    }
+
+    .submit-button.none {
+        display: none;
+    }
+
+    .user-image,
+    .user-media {
+        border-radius: 10px;
+    }
+
+    audio.user-media {
+        width: 40ch !important;
+    }
+
+    @media screen and (max-width: 600px) {
+        .container {
+            width: 100%;
+            padding: 15px 5px;
+            border-radius: 0;
+        }
+
+        #chatBox {
+            height: 62vh;
+            padding: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .voice-icon.active {
+        animation: bounce 0.5s infinite;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .audio-player {
+        position: relative;
+    }
+
+    .close-btn {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: -7px;
+        right: 0px;
+        cursor: pointer;
+        z-index: 1;
+    }
+</style>
+
+<div class="container">
+    <!-- <div class="history-menu"></div> -->
+    <div class="header" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+        <h1 style="margin-right: 20px; font-weight: 600; color: #3a3;">Chat Bot</h1>
+        <article style="display: flex; align-items: center; flex-wrap: wrap;">
+            <label for="select-model" style="margin-right: 10px;"><b>Chế độ bot:</b></label>
+            <select class="form-select" id="select-model" style="width: 30ch;">
+                <option value="default" selected>Mặc định</option>
+                <option value="geography">Địa lý</option>
+                <option value="history">Lịch sử</option>
+                <option value="legal-economics">Kinh tế - pháp luật</option>
+                <option value="literature">Văn học</option>
+            </select>
+        </article>
+
+    </div>
+    <div id="chatBox"></div>
+    <form id="chatForm" enctype="multipart/form-data">
+        <div class="action" style="display: flex;">
+            <div class="audio-player" style="width: 100%; display: none;">
+                <img class="close-btn" src="{% static 'Image/Icon/close-icon.png' %}" onclick="close_audio_input()"
+                    style="display: none;">
+            </div>
+            <input class="message-input" type="text" style="height: auto;" id="message" placeholder="Tin nhắn ..."
+                onkeyup="listen_message_input()" autocomplete="off" autofocus>
+            <!-- <a id="stopRecording" onclick="stopRecording()" disabled>Stop Recording</a> -->
+
+            <span class="gallery-btn" style="cursor: pointer;"> <!-- nút add ảnh -->
+                <img class="voice-icon" src="{% static 'Image/Icon/voice-icon.png' %}" width="25" height="25"
+                    onclick="listen_voice_btn()">
+            </span>
+            <span class="gallery-btn" style="cursor: pointer;"> <!-- nút add ảnh -->
+                <img class="gallery-icon" src="{% static 'Image/Icon/file-icon.png' %}" width="25" height="25"
+                    onclick="listen_image_icon()">
+            </span>
+            <span class="submit-btn" style="cursor: pointer;"> <!-- nút gửi-->
+                <button type="submit" class="submit-button none" disabled>
+                    <img class="send-icon" src="{% static 'Image/Icon/send-icon.png' %}" width="20" height="20">
+                </button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<!-- Thư viện markdown text -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    let mediaRecorder;
+    const chatForm = document.getElementById('chatForm');
+    const audio_box = document.getElementsByClassName("audio-player")[0];
+    const close_btn = document.getElementsByClassName("close-btn")[0];
+    const send_icon = document.getElementsByClassName("send-icon");
+    const submit_btn = document.getElementsByClassName("submit-button")[0];
+    const send_button_tag = document.getElementsByClassName("submit-button")[0];
+    const chatBox = document.getElementById('chatBox');
+    const getBase64String = (data) => data.replace(
+        'data:', '').replace(/^.+,/, '');
+    const get_mimeType_string = (data) => data.replace(
+        'data:', '').replace(/;.+/, "");
+
+    // bắt sự kiên người dùng gửi tin nhắn
+    chatForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        reload_chatform()
+        // location.reload()
+        send_icon[0].src = "{% static 'Image/load-circle.gif' %}";
+        submit_btn.disabled = true;
+        var formData = new FormData();
+        const usermessage_box = document.getElementById('message');
+        const userMedia_box = document.querySelectorAll(".upload");
+        const select_model = document.getElementById("select-model");
+        const action_bot = `
+            <img src="{% static 'Image/chatbot.png' %}" width="50" height="50">
+            <img class="load-action" src="{% static 'Image/load-animation.gif' %}" width="40">
+        `
+        const botMessage = document.createElement('div');
+        botMessage.className = 'bot-message';
+        botMessage.style = "display: flex; align-items: baseline;";
+        botMessage.innerHTML = action_bot;
+
+        const userChat = document.createElement('div');
+        var usermessage = usermessage_box.value;
+        userChat.className = 'user-message';
+        userChat.textContent = usermessage;
+        usermessage_box.value = "";
+        formData.append('message', usermessage);
+        if (!(select_model.value === "default"))
+            formData.append('model_bot', select_model.value);
+
+        chatBox.appendChild(userChat);
+        chatBox.appendChild(botMessage);
+        if (userMedia_box) {
+            // let br =
+            userMedia_box.forEach(media => {
+                console.log(media);
+
+                const source = media.ariaValueText;
+                media.className = "user-media";
+                userChat.appendChild(document.createElement("br"));
+                userChat.appendChild(media); // 
+                const base64_file = source.replace('data:', '')
+                    .replace(/^.+,/, '');
+                const mimeType = source.replace('data:', '')
+                    .replace(/;.+/, "");
+
+                formData.append("base64_file", base64_file);
+                formData.append("mimeType", mimeType);
+            })
+        }
+
+        chatBox.scrollTo(0, chatBox.scrollHeight);
+        fetch("{% url 'SSChat' %}", { //send request
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                const message_box = document.createElement('div');
+                message_box.className = "message-relply-box";
+                document.getElementsByClassName("load-action")[0].remove();
+                message_box.innerHTML = marked.parse(data.reply);
+                botMessage.appendChild(message_box);
+                chatBox.appendChild(botMessage);
+
+                send_icon[0].src = "{% static 'Image/Icon/send-icon.png' %}";
+                chatBox.scrollTo(0, chatBox.scrollHeight);
+                document.getElementById('chatForm').addEventListener('reset', function (event) {
+                    console.log('Form has been reset');
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+
+    function listen_message_input() {
+        const message_input_tag = document.getElementById("message");
+        const message_value = message_input_tag.value;
+
+        send_button_tag.className = "submit-button";
+        send_button_tag.disabled = false;
+        if (!(message_value)) {
+            send_button_tag.className = "submit-button none";
+            send_button_tag.disabled = "true";
+        }
+    }
+
+    function listen_image_icon() {
+        const chatForm = document.getElementById('chatForm');
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = "image/*, application/pdf";
+        input.addEventListener('change', function () {
+            const reader = new FileReader();
+            reader.onload = function () {
+                var image_input = document.getElementsByClassName("upload user-image")[0];
+                var file_result = reader.result;
+
+                if (!(image_input)) {
+                    var image_input = document.createElement('img');
+                    image_input.className = "upload user-image";
+                    image_input.height = "50";
+                    image_input.width = "50";
+                }
+
+                if (file_result.substring(5, 20) === "application/pdf")
+                    image_input.src = "{% static 'Image/pdf-file-icon.png' %}";
+                else
+                    image_input.src = file_result;
+
+                image_input.ariaValueText = file_result;
+                chatForm.appendChild(image_input);
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+        input.click();
+    }
+
+    function listen_voice_btn() {
+        const voice_icon = document.getElementsByClassName("voice-icon");
+
+        if (voice_icon[0].classList.length == 2 && voice_icon[0].classList[1] == "recording") {
+            mediaRecorder.stop();
+        }
+        else {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (stream) {
+                    let audioChunks = [];
+                    voice_icon[0].src = "{%static 'Image/Icon/recording-icon.png'%}"
+                    voice_icon[0].classList.add("recording");
+
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.start();
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+                    mediaRecorder.onstop = function () {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const reader = new FileReader();
+
+                        voice_icon[0].src = "{%static 'Image/Icon/voice-icon.png'%}";
+                        voice_icon[0].classList.remove("recording");
+
+                        reader.onloadend = function () {
+                            let user_audio = document.getElementsByClassName("upload user-audio")[0];
+                            const file_result = reader.result;
+                            if (!(user_audio)) {
+                                user_audio = document.createElement("audio");
+                                user_audio.className = "upload user-audio";
+                                user_audio.style = "width: 100%";
+                                user_audio.controls = "controls";
+                                audio_box.appendChild(user_audio);
+                                audio_box.style = "width: 100%;"
+                                close_btn.style = "";
+                                document.getElementsByClassName("message-input")[0].style = "display: none";
+                                send_button_tag.className = "submit-button";
+                                send_button_tag.disabled = false;
+                            }
+                            user_audio.src = file_result;
+                            user_audio.ariaValueText = file_result;
+
+                        };
+                        reader.readAsDataURL(audioBlob);
+                        mediaRecorder = null;
+                    };
+                })
+                .catch(function (error) {
+                    console.error("Error accessing microphone:", error);
+                    alert("Error accessing microphone:", error);
+                });
+        }
+    }
+
+    function close_audio_input() {
+        const audio = document.getElementsByClassName('upload user-audio')[0];
+        const closeBtn = document.querySelector('.close-btn');
+        const message_input_tag = document.getElementById("message");
+        send_button_tag.className = "submit-button none";
+        send_button_tag.disabled = true;
+
+        audio.parentNode.removeChild(audio);
+        audio_box.style = "width: 100%; display: none"
+        close_btn.style = "display: none";
+        document.getElementsByClassName("message-input")[0].style = "";
+    }
+
+    function reload_chatform() {
+        send_button_tag.className = "submit-button none";
+        send_button_tag.disabled = true;
+        close_btn.style = "display: none";
+        document.getElementsByClassName("message-input")[0].style = "";
+        audio_box.style = "width: 100%; display: none"
+    }
+</script>
+
+{% endblock sschat %}

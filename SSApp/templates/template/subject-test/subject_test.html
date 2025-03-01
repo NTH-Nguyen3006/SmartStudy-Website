@@ -1,0 +1,119 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block trac_nghiem %}
+<style>
+    header.subject_test {
+        padding: 20px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .subject-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .subject-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+        flex-basis: 30%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+    .subject-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .subject-card h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        color: #007bff;
+    }
+
+    .subject-card button {
+        padding: 12px 25px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .subject-card button:hover {
+        background-color: #0056b3;
+    }
+
+    footer {
+        background-color: #343a40;
+        padding: 15px;
+        text-align: center;
+        color: white;
+        margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .subject-card {
+            flex-basis: 45%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .subject-card {
+            flex-basis: 100%;
+        }
+    }
+</style>
+
+<header class="subject_test">
+    <h1>Trang web trắc nghiệm</h1>
+</header>
+
+<div class="container">
+    <div class="subject-group">
+        <div class="subject-card" onclick="redirect('mon-hoc')">
+            <h2>Môn học</h2>
+            <button>Chọn môn</button>
+        </div>
+        <div class="subject-card" onclick="redirect('kiem-tra-15-phut')">
+            <h2>Kiểm tra 15 phút</h2>
+            <button>Kiểm tra</button>
+        </div>
+        <div class="subject-card" onclick="redirect('kiem-tra-hoc-ki-1')">
+            <h2>Đề kiểm tra học kì 1</h2>
+            <button>Kiểm tra</button>
+        </div>
+        <div class="subject-card" onclick="redirect('danh-gia-nang-luc')">
+            <h2>Đánh giá năng lực</h2>
+            <button>DGNL</button>
+        </div>
+        <div class="subject-card" onclick="redirect('danh-gia-tu-duy')">
+            <h2>Đánh giá tư duy</h2>
+            <button>ĐGTĐ</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function redirect(endpoint) {
+        window.location.href = `{% url 'subject-test' %}${endpoint}`
+    }
+</script>
+
+{% endblock trac_nghiem %}

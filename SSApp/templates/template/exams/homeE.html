@@ -1,0 +1,188 @@
+{% extends 'template/exams/indexE.html' %}
+{% load static %}
+
+{% block homeE %}
+<link rel="stylesheet" href="{%static 'css/exam.css' %}">
+<br>
+<div class="container-lg homeE">
+    <div style="width: 100%; height: auto; display: flex; justify-content: center;">
+        <form class="d-flex homeE" role="search" id="form-search-exam" method="get" action="{% url 'exam' %}"
+            style="width: 60%;">
+            <input class="form-control-lg homeE me-1" name="search" type="search" aria-label="Search" id="search-box"
+                placeholder="ID/Từ khóa đề thi" autocomplete="off"
+                style="width: 100%; font-size: 1rem; border: 2px solid black">
+            <button class="btn btn-success" type="submit"> <!-- lấy lại bootstrap icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </button>
+        </form>
+    </div>
+    <article class="selection homeE">
+        <div class="class-9 homeE">
+            <a class="btn btn-success homeE" data-bs-toggle="collapse" href="#Class9" role="button"
+                aria-expanded="false" aria-controls="Class">
+                Lớp 9</a>
+            <div class="col">
+                <div class="collapse multi-collapse" id="Class9">
+                    <div class="card card-body" style="border: 3px #198754 solid;">
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi giữa học kì 1</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}giua-hoc-ki-1-lop9">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi học kì 1</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}cuoi-hoc-ki-1-lop9">Xem ngay</a>
+                        </div class="box-class content homeE">
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi giữa học kì 2</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}giua-hoc-ki-2-lop9">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi học kì 2</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}cuoi-hoc-ki-2-lop9">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE">
+                            <b><span>Đề học sinh giỏi</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}hoc-sinh-gioi-lop9">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề khảo sát chất lượng</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}khao-sat-chat-luong-lop9">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="class-10 homeE">
+            <a class="btn btn-danger homeE" data-bs-toggle="collapse" href="#Class10" role="button"
+                aria-expanded="false" aria-controls="Class">Lớp 10</a>
+            <div class="col">
+                <div class="collapse multi-collapse" id="Class10">
+                    <div class="card card-body" style="border: 3px #dc3545 solid;">
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi giữa học kì 1</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}giua-hoc-ki-1-lop10">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi học kì 1</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}cuoi-hoc-ki-1-lop10">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi giữa học kì 2</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}giua-hoc-ki-2-lop10">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi học kì 2</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}cuoi-hoc-ki-2-lop10">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE">
+                            <b><span>Đề học sinh giỏi</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}hoc-sinh-gioi-lop10">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề khảo sát chất lượng</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}khao-sat-chat-luong-lop10">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="class-11 homeE">
+            <a class="btn btn-warning homeE" data-bs-toggle="collapse" href="#Class11" role="button"
+                aria-expanded="false" aria-controls="Class">Lớp 11</a>
+            <div class="col">
+                <div class="collapse multi-collapse" id="Class11">
+                    <div class="card card-body" style="border: 3px #ffc107 solid;">
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi giữa học kì 1</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}giua-hoc-ki-1-lop11">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi học kì 1</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}cuoi-hoc-ki-1-lop11">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi giữa học kì 2</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}giua-hoc-ki-2-lop10">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi học kì 2</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}cuoi-hoc-ki-2-lop11">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE">
+                            <b><span>Đề học sinh giỏi</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}hoc-sinh-gioi-lop11">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề khảo sát chất lượng</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}khao-sat-chat-luong-lop11">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="class-12 homeE">
+            <a class="btn btn-info homeE" data-bs-toggle="collapse" href="#Class12" role="button" aria-expanded="false"
+                aria-controls="Class">Lớp 12</a>
+            <div class="col">
+                <div class="collapse multi-collapse" id="Class12">
+                    <div class="card card-body" style="border: 3px #0dcaf0 solid;">
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi giữa học kì 1</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}giua-hoc-ki-1-lop12">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi học kì 1</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}cuoi-hoc-ki-1-lop12">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi giữa học kì 2</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}giua-hoc-ki-2-lop12">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi học kì 2</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}cuoi-hoc-ki-2-lop12">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE">
+                            <b><span>Đề học sinh giỏi</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}hoc-sinh-gioi-lop12">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề khảo sát chất lượng</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}khao-sat-chat-luong-lop12">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="orther-box homeE">
+            <a class="btn btn-primary homeE" data-bs-toggle="collapse" href="#OrtherBox" role="button"
+                aria-expanded="false" aria-controls="Class">Mục khác</a>
+            <div class="col">
+                <div class="collapse multi-collapse" id="OrtherBox">
+                    <div class="card card-body">
+                        <div class="box-class content homeE">
+                            <b><span>Sách giáo khoa online</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}sach-giao-khoa-toan">Xem ngay</a>
+                        </div>
+                        <div class="box-class content homeE" id="tick">
+                            <b><span>Đề thi thử THPT Quốc Gia</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}de-thi-thu-thpt-quoc-gia-lop12">Xem
+                                ngay</a>
+                        </div>
+                        <div class="box-class content homeE">
+                            <b><span>Đề thi vào lớp 10</span></b>
+                            <a class="btn btn-primary" href="{% url 'exam' %}thi-tuyen-sinh-vao-10-lop9">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+<br>
+
+{% endblock homeE %}

@@ -1,0 +1,91 @@
+{% extends 'template/exams/indexE.html' %}
+{% load static %}
+
+{% block examItem %}
+
+<link rel="stylesheet" href="{% static 'css/exam.css' %}">
+
+<div class="container-md showE" style="margin-top: 10px; padding: 20px 0; border-radius: 10px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+        {% for itemE in pages.object_list %}
+        <div class="card mb-3 exam">
+            <div class="row exam">
+                <div class="col-md-3" style="height: 100%;">
+                    <div class="image-box" style="width: 9rem; height: 13em;">
+                        <img style="height: 100%; width: 100%;"
+                            src="https://raw.githubusercontent.com/SmartStudy-ChatBot/SSWeb-data/main/exams-images/{{itemE.URL_image}}"
+                            class="img-fluid rounded-start" alt="{{itemE.content}}">
+                    </div>
+
+                </div>
+                <div class="col-md-8 exam">
+                    <div class="card-body exam">
+                        <h6 style="width: 95%;" class="card-title">{{itemE.content}}</h6>
+                        <hr>
+                        <p class="card-text">Mã {{itemE.id}}</p>
+                        <a href="{% url 'exam' %}?show={{itemE.content_path}}" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination exam-pagination">
+                {%if pages.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{pages.previous_page_number}}&{{search}}">
+                        ←</a></li>
+                {%endif%}
+
+                {%if pages.number >= 3 %}
+                <li class="page-item "><a class="page-link" href="?page=1">1</a></li>
+                {% endif %}
+                {%if pages.number >= 4 %}
+                <li class="page-item "><a class="page-link" href="">...</a></li>
+                {% endif %}
+
+                {% for num_page in pages.paginator.page_range %}
+                {%if pages.number == num_page %}
+                {%if pages.has_previous %}
+                <li class="page-item"><a class="page-link"
+                        href="?page={{pages.previous_page_number}}&{{search}}">{{pages.previous_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item active"><a class="page-link" href="#">{{num_page}}</a></li>
+                {%if pages.has_next %}
+                <li class="page-item"><a class="page-link"
+                        href="?page={{pages.next_page_number}}&{{search}}">{{pages.next_page_number}}</a></li>
+                {% endif %}
+
+                {% endif %}
+                {% endfor%}
+
+                {%if pages.number|add:"+3" <= pages.paginator.num_pages %} <li class="page-item "><a class="page-link"
+                        href="">...</a></li>
+                    {% endif %}
+                    {%if pages.number|add:"+2" <= pages.paginator.num_pages %} <li class="page-item "><a
+                            class="page-link"
+                            href="?page={{pages.paginator.num_pages}}&{{search}}">{{pages.paginator.num_pages}}</a></li>
+                        {% endif %}
+
+                        {%if pages.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{pages.next_page_number}}&{{search}}">
+                                →</a></li>
+                        {%endif%}
+            </ul>
+        </nav>
+
+        {%if pages.has_previous %}
+        <a href="?page={{pages.previous_page_number}}"></a>
+        {% endif %}
+        <!-- <span>{{pages.number}}</span> -->
+
+        {%if pages.has_next %}
+        <a href="?page={{pages.next_page_number}}"></a>
+        {% endif %}
+    </div>
+</div>
+<br><br>
+
+{% endblock examItem %}

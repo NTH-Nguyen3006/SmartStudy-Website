@@ -1,0 +1,2526 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block chemical %}
+<link rel="stylesheet" href="{%static 'css\chemical.css' %}">
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+<div class="Chemical-periodic table">
+    <article style="display: flex; justify-content: center;">
+        <h1>Bảng Tuần Hoàn Hóa Học</h1>
+        <br>
+    </article>
+
+    <article class="table-chemical" style="display: flex; flex-wrap: wrap; justify-content: center;">
+        <div class="chemical-periodic-table">
+            <div class="table-chemicals" id="table">
+                <a class="element element-1 _1(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('H')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">1</p>
+                            <h5 style="margin: 0;">H</h5>
+                            <p class="element-name">
+                                Hydrogen</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass"> 1.008 </p>
+                            <p class="electronegativity"> 2.2</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-2 _8(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('He')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">2</p>
+                            <h5 style="margin: 0;">He</h5>
+                            <p class="element-name">
+                                Helium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                4.003 </p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-3 _1(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('Li')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">3</p>
+                            <h5 style="margin: 0;">Li</h5>
+                            <p class="element-name">
+                                Lithium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                6.940 </p>
+
+                            <p class="electronegativity">
+                                0.98</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-4 _2(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('Be')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">4</p>
+                            <h5 style="margin: 0;">Be</h5>
+                            <p class="element-name">
+                                Beryllium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                9.012 </p>
+
+                            <p class="electronegativity">
+                                1.57</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-5 _3(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('B')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">5</p>
+                            <h5 style="margin: 0;">B</h5>
+                            <p class="element-name">
+                                Boron</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                10.81 </p>
+
+                            <p class="electronegativity">
+                                2.04</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-6 _4(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('C')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">6</p>
+                            <h5 style="margin: 0;">C</h5>
+                            <p class="element-name">
+                                Carbon</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                12.01 </p>
+
+                            <p class="electronegativity">
+                                2.55</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-7 _5(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('N')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">7</p>
+                            <h5 style="margin: 0;">N</h5>
+                            <p class="element-name">
+                                Nitrogen</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                14.01 </p>
+
+                            <p class="electronegativity">
+                                3.04</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-8 _6(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('O')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">8</p>
+                            <h5 style="margin: 0;">O</h5>
+                            <p class="element-name">
+                                Oxygen</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                16.00 </p>
+
+                            <p class="electronegativity">
+                                3.44</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-9 _7(A)" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    onclick="getElement_Info('F')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">9</p>
+                            <h5 style="margin: 0;">F</h5>
+                            <p class="element-name">
+                                Fluorine</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                19.00 </p>
+
+                            <p class="electronegativity">
+                                3.98</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-10 _8(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ne')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">10</p>
+                            <h5 style="margin: 0;">Ne</h5>
+                            <p class="element-name">
+                                Neon</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                20.18 </p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-11 _1(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Na')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">11</p>
+                            <h5 style="margin: 0;">Na</h5>
+                            <p class="element-name">
+                                Sodium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                22.99 </p>
+
+                            <p class="electronegativity">
+                                0.93</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-12 _2(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Mg')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">12</p>
+                            <h5 style="margin: 0;">Mg</h5>
+                            <p class="element-name">
+                                Magnesium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                24.31 </p>
+
+                            <p class="electronegativity">
+                                1.31</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-13 _3(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Al')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">13</p>
+                            <h5 style="margin: 0;">Al</h5>
+                            <p class="element-name">
+                                Aluminium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                26.98 </p>
+
+                            <p class="electronegativity">
+                                1.61</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-14 _4(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Si')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">14</p>
+                            <h5 style="margin: 0;">Si</h5>
+                            <p class="element-name">
+                                Silicon</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                28.09 </p>
+
+                            <p class="electronegativity">
+                                1.9</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-15 _5(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('P')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">15</p>
+                            <h5 style="margin: 0;">P</h5>
+                            <p class="element-name">
+                                Phosphorus</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                30.97 </p>
+
+                            <p class="electronegativity">
+                                2.19</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-16 _6(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('S')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">16</p>
+                            <h5 style="margin: 0;">S</h5>
+                            <p class="element-name">
+                                Sulfur</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                32.06 </p>
+
+                            <p class="electronegativity">
+                                2.58</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-17 _7(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Cl')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">17</p>
+                            <h5 style="margin: 0;">Cl</h5>
+                            <p class="element-name">
+                                Chlorine</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                35.45 </p>
+
+                            <p class="electronegativity">
+                                3.16</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-18 _8(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ar')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">18</p>
+                            <h5 style="margin: 0;">Ar</h5>
+                            <p class="element-name">
+                                Argon</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                39.95 </p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-19 _1(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('K')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">19</p>
+                            <h5 style="margin: 0;">K</h5>
+                            <p class="element-name">
+                                Potassium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                39.10 </p>
+
+                            <p class="electronegativity">
+                                0.82</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-20 _2(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ca')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">20</p>
+                            <h5 style="margin: 0;">Ca</h5>
+                            <p class="element-name">
+                                Calcium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                40.08 </p>
+
+                            <p class="electronegativity">
+                                1.0</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-21 _3(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Sc')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">21</p>
+                            <h5 style="margin: 0;">Sc</h5>
+                            <p class="element-name">
+                                Scandium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                44.96 </p>
+
+                            <p class="electronegativity">
+                                1.36</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-22 _4(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ti')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">22</p>
+                            <h5 style="margin: 0;">Ti</h5>
+                            <p class="element-name">
+                                Titanium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                47.87 </p>
+
+                            <p class="electronegativity">
+                                1.54</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-23 _5(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('V')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">23</p>
+                            <h5 style="margin: 0;">V</h5>
+                            <p class="element-name">
+                                Vanadium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                50.94 </p>
+
+                            <p class="electronegativity">
+                                1.63</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-24 _6(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Cr')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">24</p>
+                            <h5 style="margin: 0;">Cr</h5>
+                            <p class="element-name">
+                                Chromium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                52.00 </p>
+
+                            <p class="electronegativity">
+                                1.66</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-25 _7(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Mn')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">25</p>
+                            <h5 style="margin: 0;">Mn</h5>
+                            <p class="element-name">
+                                Manganese</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                54.94 </p>
+
+                            <p class="electronegativity">
+                                1.55</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-26 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Fe')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">26</p>
+                            <h5 style="margin: 0;">Fe</h5>
+                            <p class="element-name">
+                                Iron</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                55.85 </p>
+
+                            <p class="electronegativity">
+                                1.83</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-27 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Co')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">27</p>
+                            <h5 style="margin: 0;">Co</h5>
+                            <p class="element-name">
+                                Cobalt</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                58.93 </p>
+
+                            <p class="electronegativity">
+                                1.88</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-28 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ni')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">28</p>
+                            <h5 style="margin: 0;">Ni</h5>
+                            <p class="element-name">
+                                Nickel</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                58.69 </p>
+
+                            <p class="electronegativity">
+                                1.91</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-29 _1(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Cu')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">29</p>
+                            <h5 style="margin: 0;">Cu</h5>
+                            <p class="element-name">
+                                Copper</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                63.55 </p>
+
+                            <p class="electronegativity">
+                                1.9</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-30 _2(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Zn')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">30</p>
+                            <h5 style="margin: 0;">Zn</h5>
+                            <p class="element-name">
+                                Zinc</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                65.38 </p>
+
+                            <p class="electronegativity">
+                                1.65</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-31 _3(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ga')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">31</p>
+                            <h5 style="margin: 0;">Ga</h5>
+                            <p class="element-name">
+                                Gallium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                69.72 </p>
+
+                            <p class="electronegativity">
+                                1.81</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-32 _4(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ge')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">32</p>
+                            <h5 style="margin: 0;">Ge</h5>
+                            <p class="element-name">
+                                Germanium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                72.63 </p>
+
+                            <p class="electronegativity">
+                                2.01</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-33 _5(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('As')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">33</p>
+                            <h5 style="margin: 0;">As</h5>
+                            <p class="element-name">
+                                Arsenic</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                74.92 </p>
+
+                            <p class="electronegativity">
+                                2.18</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-34 _6(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Se')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">34</p>
+                            <h5 style="margin: 0;">Se</h5>
+                            <p class="element-name">
+                                Selenium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                78.97 </p>
+
+                            <p class="electronegativity">
+                                2.55</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-35 _7(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Br')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">35</p>
+                            <h5 style="margin: 0;">Br</h5>
+                            <p class="element-name">
+                                Bromine</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                79.90 </p>
+
+                            <p class="electronegativity">
+                                2.96</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-36 _8(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Kr')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">36</p>
+                            <h5 style="margin: 0;">Kr</h5>
+                            <p class="element-name">
+                                Krypton</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                83.80 </p>
+
+                            <p class="electronegativity">
+                                3.0</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-37 _1(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Rb')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">37</p>
+                            <h5 style="margin: 0;">Rb</h5>
+                            <p class="element-name">
+                                Rubidium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                85.47 </p>
+
+                            <p class="electronegativity">
+                                0.82</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-38 _2(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Sr')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">38</p>
+                            <h5 style="margin: 0;">Sr</h5>
+                            <p class="element-name">
+                                Strontium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                87.62 </p>
+
+                            <p class="electronegativity">
+                                0.95</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-39 _3(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Y')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">39</p>
+                            <h5 style="margin: 0;">Y</h5>
+                            <p class="element-name">
+                                Yttrium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                88.91 </p>
+
+                            <p class="electronegativity">
+                                1.22</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-40 _4(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Zr')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">40</p>
+                            <h5 style="margin: 0;">Zr</h5>
+                            <p class="element-name">
+                                Zirconium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                91.22 </p>
+
+                            <p class="electronegativity">
+                                1.33</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-41 _5(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Nb')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">41</p>
+                            <h5 style="margin: 0;">Nb</h5>
+                            <p class="element-name">
+                                Niobium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                92.91 </p>
+
+                            <p class="electronegativity">
+                                1.6</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-42 _6(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Mo')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">42</p>
+                            <h5 style="margin: 0;">Mo</h5>
+                            <p class="element-name">
+                                Molybdenum</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                95.95 </p>
+
+                            <p class="electronegativity">
+                                2.16</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-43 _7(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Tc')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">43</p>
+                            <h5 style="margin: 0;">Tc</h5>
+                            <p class="element-name">
+                                Technetium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                98.00 </p>
+
+                            <p class="electronegativity">
+                                1.9</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-44 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ru')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">44</p>
+                            <h5 style="margin: 0;">Ru</h5>
+                            <p class="element-name">
+                                Ruthenium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                101.07 </p>
+
+                            <p class="electronegativity">
+                                2.2</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-45 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Rh')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">45</p>
+                            <h5 style="margin: 0;">Rh</h5>
+                            <p class="element-name">
+                                Rhodium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                102.91 </p>
+
+                            <p class="electronegativity">
+                                2.28</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-46 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Pd')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">46</p>
+                            <h5 style="margin: 0;">Pd</h5>
+                            <p class="element-name">
+                                Palladium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                106.42 </p>
+
+                            <p class="electronegativity">
+                                2.2</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-47 _1(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ag')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">47</p>
+                            <h5 style="margin: 0;">Ag</h5>
+                            <p class="element-name">
+                                Silver</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                107.87 </p>
+
+                            <p class="electronegativity">
+                                1.93</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-48 _2(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Cd')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">48</p>
+                            <h5 style="margin: 0;">Cd</h5>
+                            <p class="element-name">
+                                Cadmium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                112.41 </p>
+
+                            <p class="electronegativity">
+                                1.69</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-49 _3(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('In')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">49</p>
+                            <h5 style="margin: 0;">In</h5>
+                            <p class="element-name">
+                                Indium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                114.82 </p>
+
+                            <p class="electronegativity">
+                                1.78</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-50 _4(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Sn')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">50</p>
+                            <h5 style="margin: 0;">Sn</h5>
+                            <p class="element-name">
+                                Tin</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                118.71 </p>
+
+                            <p class="electronegativity">
+                                1.96</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-51 _5(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Sb')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">51</p>
+                            <h5 style="margin: 0;">Sb</h5>
+                            <p class="element-name">
+                                Antimony</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                121.76 </p>
+
+                            <p class="electronegativity">
+                                2.05</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-52 _6(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Te')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">52</p>
+                            <h5 style="margin: 0;">Te</h5>
+                            <p class="element-name">
+                                Tellurium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                127.60 </p>
+
+                            <p class="electronegativity">
+                                2.1</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-53 _7(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('I')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">53</p>
+                            <h5 style="margin: 0;">I</h5>
+                            <p class="element-name">
+                                Iodine</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                126.90 </p>
+
+                            <p class="electronegativity">
+                                2.66</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-54 _8(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Xe')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">54</p>
+                            <h5 style="margin: 0;">Xe</h5>
+                            <p class="element-name">
+                                Xenon</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                131.29 </p>
+
+                            <p class="electronegativity">
+                                2.6</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-55 _1(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Cs')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">55</p>
+                            <h5 style="margin: 0;">Cs</h5>
+                            <p class="element-name">
+                                Cesium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                132.91 </p>
+
+                            <p class="electronegativity">
+                                0.79</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-56 _2(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ba')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">56</p>
+                            <h5 style="margin: 0;">Ba</h5>
+                            <p class="element-name">
+                                Barium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                137.33 </p>
+
+                            <p class="electronegativity">
+                                0.89</p>
+
+                        </div>
+                    </div>
+                </a>
+
+
+                <div class="element element-Lanthanum"
+                    style="font-size: 13px; font-weight: 500; text-align: center; color: rgb(157, 4, 4);">
+                    Họ Lanthanum
+                </div>
+
+
+                <a class="element element-72 _4(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Hf')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">72</p>
+                            <h5 style="margin: 0;">Hf</h5>
+                            <p class="element-name">
+                                Hafnium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                178.49 </p>
+
+                            <p class="electronegativity">
+                                1.3</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-73 _5(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ta')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">73</p>
+                            <h5 style="margin: 0;">Ta</h5>
+                            <p class="element-name">
+                                Tantalum</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                180.95 </p>
+
+                            <p class="electronegativity">
+                                1.5</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-74 _6(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('W')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">74</p>
+                            <h5 style="margin: 0;">W</h5>
+                            <p class="element-name">
+                                Tungsten</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                183.84 </p>
+
+                            <p class="electronegativity">
+                                2.36</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-75 _7(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Re')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">75</p>
+                            <h5 style="margin: 0;">Re</h5>
+                            <p class="element-name">
+                                Rhenium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                186.21 </p>
+
+                            <p class="electronegativity">
+                                1.9</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-76 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Os')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">76</p>
+                            <h5 style="margin: 0;">Os</h5>
+                            <p class="element-name">
+                                Osmium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                190.23 </p>
+
+                            <p class="electronegativity">
+                                2.2</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-77 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ir')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">77</p>
+                            <h5 style="margin: 0;">Ir</h5>
+                            <p class="element-name">
+                                Iridium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                192.22 </p>
+
+                            <p class="electronegativity">
+                                2.2</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-78 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Pt')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">78</p>
+                            <h5 style="margin: 0;">Pt</h5>
+                            <p class="element-name">
+                                Platinum</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                195.08 </p>
+
+                            <p class="electronegativity">
+                                2.28</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-79 _1(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Au')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">79</p>
+                            <h5 style="margin: 0;">Au</h5>
+                            <p class="element-name">
+                                Gold</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                196.97 </p>
+
+                            <p class="electronegativity">
+                                2.54</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-80 _2(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Hg')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">80</p>
+                            <h5 style="margin: 0;">Hg</h5>
+                            <p class="element-name">
+                                Mercury</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                200.59 </p>
+
+                            <p class="electronegativity">
+                                2.0</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-81 _3(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Tl')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">81</p>
+                            <h5 style="margin: 0;">Tl</h5>
+                            <p class="element-name">
+                                Thallium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                204.38 </p>
+
+                            <p class="electronegativity">
+                                1.62</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-82 _4(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Pb')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">82</p>
+                            <h5 style="margin: 0;">Pb</h5>
+                            <p class="element-name">
+                                Lead</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                207.21 </p>
+
+                            <p class="electronegativity">
+                                1.87</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-83 _5(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Bi')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">83</p>
+                            <h5 style="margin: 0;">Bi</h5>
+                            <p class="element-name">
+                                Bismuth</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                208.98 </p>
+
+                            <p class="electronegativity">
+                                2.02</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-84 _6(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Po')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">84</p>
+                            <h5 style="margin: 0;">Po</h5>
+                            <p class="element-name">
+                                Polonium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                209.00 </p>
+
+                            <p class="electronegativity">
+                                2.0</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-85 _7(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('At')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">85</p>
+                            <h5 style="margin: 0;">At</h5>
+                            <p class="element-name">
+                                Astatine</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                210.00 </p>
+
+                            <p class="electronegativity">
+                                2.2</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-86 _8(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Rn')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">86</p>
+                            <h5 style="margin: 0;">Rn</h5>
+                            <p class="element-name">
+                                Radon</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                222.00 </p>
+
+                            <p class="electronegativity">
+                                2.2</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-87 _1(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Fr')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">87</p>
+                            <h5 style="margin: 0;">Fr</h5>
+                            <p class="element-name">
+                                Francium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                223.00 </p>
+
+                            <p class="electronegativity">
+                                0.79</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-88 _2(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ra')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">88</p>
+                            <h5 style="margin: 0;">Ra</h5>
+                            <p class="element-name">
+                                Radium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+
+                                226.00 </p>
+
+                            <p class="electronegativity">
+                                0.9</p>
+
+                        </div>
+                    </div>
+                </a>
+
+
+                <div class="element element-Actinium"
+                    style="font-size: 13px ;font-weight: 500; text-align: center; color: rgb(157, 4, 4);">
+                    Họ Actinium
+                </div>
+
+
+                <a class="element element-104 _4(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Rf')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">104</p>
+                            <h5 style="margin: 0;">Rf</h5>
+                            <p class="element-name">
+                                Rutherfordium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [267]</p>
+
+                            <p class="electronegativity">
+                                4.0</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-105 _5(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Db')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">105</p>
+                            <h5 style="margin: 0;">Db</h5>
+                            <p class="element-name">
+                                Dubnium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [268]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-106 _6(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Sg')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">106</p>
+                            <h5 style="margin: 0;">Sg</h5>
+                            <p class="element-name">
+                                Seaborgium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [269]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-107 _7(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Bh')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">107</p>
+                            <h5 style="margin: 0;">Bh</h5>
+                            <p class="element-name">
+                                Bohrium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [270]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-108 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Hs')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">108</p>
+                            <h5 style="margin: 0;">Hs</h5>
+                            <p class="element-name">
+                                Hassium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [269]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-109 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Mt')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">109</p>
+                            <h5 style="margin: 0;">Mt</h5>
+                            <p class="element-name">
+                                Meitnerium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [278]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-110 _8(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ds')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">110</p>
+                            <h5 style="margin: 0;">Ds</h5>
+                            <p class="element-name">
+                                Darmstadtium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [281]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-111 _1(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Rg')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">111</p>
+                            <h5 style="margin: 0;">Rg</h5>
+                            <p class="element-name">
+                                Roentgenium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [282]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-112 _2(B)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Cn')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">112</p>
+                            <h5 style="margin: 0;">Cn</h5>
+                            <p class="element-name">
+                                Copernicium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [285]</p>
+
+                            <p class="electronegativity">
+                                2.0</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-113 _3(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Nh')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">113</p>
+                            <h5 style="margin: 0;">Nh</h5>
+                            <p class="element-name">
+                                Nihonium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [286]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-114 _4(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Fl')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">114</p>
+                            <h5 style="margin: 0;">Fl</h5>
+                            <p class="element-name">
+                                Flerovium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [289]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-115 _5(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Mc')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">115</p>
+                            <h5 style="margin: 0;">Mc</h5>
+                            <p class="element-name">
+                                Moscovium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [289]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-116 _6(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Lv')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">116</p>
+                            <h5 style="margin: 0;">Lv</h5>
+                            <p class="element-name">
+                                Livermorium</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [293]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-117 _7(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Ts')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">117</p>
+                            <h5 style="margin: 0;">Ts</h5>
+                            <p class="element-name">
+                                Tennessine</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [294]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+                <a class="element element-118 _8(A)" type="button" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" onclick="getElement_Info('Og')">
+                    <div class="box content" style="display: flex;">
+                        <div class="content-1" style="width: 40%; margin-left: 3px;">
+                            <p class="element-id">118</p>
+                            <h5 style="margin: 0;">Og</h5>
+                            <p class="element-name">
+                                Oganesson</p>
+                        </div>
+                        <div class="content-2">
+                            <p class="atomic-mass">
+                                [294]</p>
+
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            <div class="table-chemicals-2">
+                <article class="Hydrogen" style="width: auto;">
+                    <div class="hydrogen hydrogen-1">\[R_2O\]</div>
+                    <div class="hydrogen hydrogen-2">\[RO\]</div>
+                    <div class="hydrogen hydrogen-3">\[R_2O_3\]</div>
+                    <div class="hydrogen hydrogen-4">\[RO_2\]</div>
+                    <div class="hydrogen hydrogen-5">\[R_2O_5\]</div>
+                    <div class="hydrogen hydrogen-6">\[RO_3\]</div>
+                    <div class="hydrogen hydrogen-7">\[R_2O_7\]</div>
+                    <div class="hydrogen hydrogen-8">\[RO_4\]</div>
+                    <div class="hydrogen hydrogen-9">\[R_2O\]</div>
+                    <div class="hydrogen hydrogen-10">\[RO\]</div>
+                    <div class="hydrogen hydrogen-11">\[R_2O_3\]</div>
+                    <div class="hydrogen hydrogen-12">\[RO_2\]</div>
+                    <div class="hydrogen hydrogen-13">\[R_2O_5\]</div>
+                    <div class="hydrogen hydrogen-14">\[RO_3\]</div>
+                    <div class="hydrogen hydrogen-15">\[R_2O_7\]</div>
+                </article>
+
+                <article class="Lanthanum-column" style="margin-top: 10px;">
+                    <div class="element lanthanum surname-chemical"
+                        style="width: 90px; display: flex; align-items: center;">Họ
+                        Lanthanum</div>
+
+                    <a class="element lanthanum element-58 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Ce')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">58</p>
+                                <h5 style="margin: 0;">Ce</h5>
+                                <p class="element-name">
+                                    Cerium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 140.12
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.12</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-59 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Pr')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">59</p>
+                                <h5 style="margin: 0;">Pr</h5>
+                                <p class="element-name">
+                                    Praseodymium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 140.91
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.13</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-60 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Nd')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">60</p>
+                                <h5 style="margin: 0;">Nd</h5>
+                                <p class="element-name">
+                                    Neodymium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 144.24
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.14</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-61 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Pm')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">61</p>
+                                <h5 style="margin: 0;">Pm</h5>
+                                <p class="element-name">
+                                    Promethium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 145.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.13</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-62 _z" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Sm')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">62</p>
+                                <h5 style="margin: 0;">Sm</h5>
+                                <p class="element-name">
+                                    Samarium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 150.36
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.17</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-63 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Eu')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">63</p>
+                                <h5 style="margin: 0;">Eu</h5>
+                                <p class="element-name">
+                                    Europium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 151.96
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.2</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-64 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Gd')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">64</p>
+                                <h5 style="margin: 0;">Gd</h5>
+                                <p class="element-name">
+                                    Gadolinium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 157.25
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.2</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-65 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Tb')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">65</p>
+                                <h5 style="margin: 0;">Tb</h5>
+                                <p class="element-name">
+                                    Terbium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 158.93
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.1</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-66 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Dy')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">66</p>
+                                <h5 style="margin: 0;">Dy</h5>
+                                <p class="element-name">
+                                    Dysprosium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 162.50
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.22</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-67 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Ho')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">67</p>
+                                <h5 style="margin: 0;">Ho</h5>
+                                <p class="element-name">
+                                    Holmium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 164.93
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.23</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-68 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Er')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">68</p>
+                                <h5 style="margin: 0;">Er</h5>
+                                <p class="element-name">
+                                    Erbium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 167.26
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.24</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-69 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Tm')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">69</p>
+                                <h5 style="margin: 0;">Tm</h5>
+                                <p class="element-name">
+                                    Thulium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 168.93
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.25</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element lanthanum element-70 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Yb')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">70</p>
+                                <h5 style="margin: 0;">Yb</h5>
+                                <p class="element-name">
+                                    Ytterbium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 173.05
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.1</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <style>
+                        .element-71._3\(B\),
+                        .element-103._3\(B\) {
+                            border-right: #3a3a3a solid 1px;
+                        }
+                    </style>
+
+                    <a class="element lanthanum element-71 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Lu')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">71</p>
+                                <h5 style="margin: 0;">Lu</h5>
+                                <p class="element-name">
+                                    Lutetium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 174.97
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.27</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                </article>
+
+                <article class="Actinium-column" style="margin-bottom: 10px;">
+                    <div class="element actinium surname-chemical"
+                        style="width: 90px; display: flex; align-items: center;">Họ Actinium
+                    </div>
+
+                    <a class="element actinium element-90 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Th')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">90</p>
+                                <h5 style="margin: 0;">Th</h5>
+                                <p class="element-name">
+                                    Thorium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 232.04
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.3</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-91 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Pa')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">91</p>
+                                <h5 style="margin: 0;">Pa</h5>
+                                <p class="element-name">
+                                    Protactinium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 231.04
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.5</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-92 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('U')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">92</p>
+                                <h5 style="margin: 0;">U</h5>
+                                <p class="element-name">
+                                    Uranium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 238.03
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.38</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-93 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Np')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">93</p>
+                                <h5 style="margin: 0;">Np</h5>
+                                <p class="element-name">
+                                    Neptunium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 237.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.36</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-94 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Pu')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">94</p>
+                                <h5 style="margin: 0;">Pu</h5>
+                                <p class="element-name">
+                                    Plutonium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 244.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.28</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-95 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Am')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">95</p>
+                                <h5 style="margin: 0;">Am</h5>
+                                <p class="element-name">
+                                    Americium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 243.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.13</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-96 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Cm')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">96</p>
+                                <h5 style="margin: 0;">Cm</h5>
+                                <p class="element-name">
+                                    Curium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 247.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.28</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-97 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Bk')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">97</p>
+                                <h5 style="margin: 0;">Bk</h5>
+                                <p class="element-name">
+                                    Berkelium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 247.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.3</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-98 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Cf')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">98</p>
+                                <h5 style="margin: 0;">Cf</h5>
+                                <p class="element-name">
+                                    Californium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 251.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.3</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-99 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Es')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">99</p>
+                                <h5 style="margin: 0;">Es</h5>
+                                <p class="element-name">
+                                    Einsteinium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 252.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.3</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-100 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Fm')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">100</p>
+                                <h5 style="margin: 0;">Fm</h5>
+                                <p class="element-name">
+                                    Fermium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 257.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.3</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-101 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Md')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">101</p>
+                                <h5 style="margin: 0;">Md</h5>
+                                <p class="element-name">
+                                    Mendelevium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 258.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.3</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-102 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('No')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">102</p>
+                                <h5 style="margin: 0;">No</h5>
+                                <p class="element-name">
+                                    Nobelium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 259.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.3</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="element actinium element-103 _3(B)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" onclick="getElement_Info('Lr')">
+                        <div class="box content" style="display: flex;">
+                            <div class="content-1" style="width: 40%; margin-left: 3px;">
+                                <p class="element-id">103</p>
+                                <h5 style="margin: 0;">Lr</h5>
+                                <p class="element-name">
+                                    Lawrencium</p>
+                            </div>
+                            <div class="content-2">
+                                <p class="atomic-mass"> 266.00
+                                </p>
+
+                                <p class="electronegativity">
+                                    1.3</p>
+
+                            </div>
+                        </div>
+                    </a>
+
+                </article>
+            </div>
+        </div>
+
+    </article>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Thông Tin Nguyên Tố Hóa Học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="set_modal_body_default()">Đóng</button>
+                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="help" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Hướng dẫn sử dụng chức năng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="help-content">
+                        <span>Click vào nguyên tố bất kì để xem thông tin</span>
+                        <img width="100%" src="{%static 'Image/chemical-support1.png' %}">
+                        <img width="100%" src="{%static 'Image/chemical-support2.png' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="set_modal_body_default()">Đóng</button>
+                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script defer>
+    const modal = document.getElementsByClassName("modal-body");
+    document.addEventListener('DOMContentLoaded', function () {
+        const bsModal = new bootstrap.Modal(document.getElementById('help'));
+        // modal[0].innerHTML = `
+        //  <div class="help-content">
+        //      <p>Click vào nguyên tố bất kì để xem thông tin</p>
+        //      <img src="{%static 'Image/chemical-support1.png' %}" alt="Hướng dẫn sử dụng chức năng">
+        //      <img src="{%static 'Image/chemical-support2.png' %}" alt="Hướng dẫn sử dụng chức năng">
+        //  </div>
+        // `
+        bsModal.show();
+    });
+
+    async function getElement_Info(element) {
+        modal[0].innerHTML = `<div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div></div>`;
+
+        fetch(`/api/chemical?element=${element}`)
+            .then(response => response.json())
+            .then(data => {
+                var electronegativity = data.electronegativity ? data.electronegativity : "Không có"
+                var oxidation = data.oxidation ? data.oxidation : "Không có"
+                var appearance = data.appearance ? data.appearance : "N/A"
+                var boil_K = data.boil_K ? data.boil_K : "Không có"
+                var melt_K = data.melt_K ? data.melt_K : "Không có"
+
+                string = `
+            <p> <strong>Người phát hiện: </strong> ${data.discoverer} </p>
+            <p> <strong>Tên nguyên tố: </strong> ${data.name_of_chemical} </p>
+            <p> <strong>Kí hiệu: </strong> ${data.symbol_chemical} </p>
+            <p> <strong>Thể: </strong> ${data.plase} </p>
+            <p> <strong>Số hiệu nguyên tử: </strong> ${data.id} </p>
+            <p> <strong>Nguyên tử khối: </strong> ${data.atomic_mass.toFixed(3)} </p>
+            <p> <strong>Phân lớp: </strong> ${data.block} </p>
+            <p> <strong>Nhóm: </strong> ${data.group} </p>
+            <p> <strong>Chu kì: </strong> ${data.period} </p>
+            <p> <strong>Phân loại: </strong> ${data.classify} </p>
+            <p> <strong>Khối lượng riêng: </strong> ${data.density} </p>
+            <p> <strong>Nhiệt độ sôi: </strong> ${boil_K} </p>
+            <p> <strong>Nhiệt độ nóng chảy: </strong> ${melt_K} </p>
+            <p> <strong>Độ âm điện: </strong> ${electronegativity} </p>
+            <p> <strong>Số oxi hóa: </strong> ${oxidation} </p>
+            <p> <strong>Cấu hình (e): </strong> ${data.configuration} </p>
+            <p> <strong>Mô tả hình dạng xuất hiện: </strong> ${appearance} </p>
+            <p> <strong> => </strong> ${data.summary} </p>
+            <img src="${data.image_URL}" alt="Hình ảnh của ${data.name_of_chemical}" style="width: 100%">
+            `;
+                modal[0].innerHTML = string;
+            });
+    }
+</script>
+
+{% endblock chemical %}

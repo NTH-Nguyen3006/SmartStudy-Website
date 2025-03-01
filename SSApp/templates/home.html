@@ -1,0 +1,335 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+
+<header class="bg-dark">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center">
+            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                <div class="my-5 text-center text-xl-start">
+                    <h1 class="display-5 fw-bolder text-white mb-2">Trò Chuyện Với AI
+                    </h1>
+                    <p class="lead fw-normal text-white-50 mb-4">Trò chuyện với trí tuệ nhân tạo và được giải đáp mọi
+                        thắc mắc.</p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{% url 'SSChat' %}">Bắt Đầu</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                <img class="img-fluid rounded-3 my-5" src="{% static 'Image/background/chat-bot.png' %}"
+                    alt="chat bot" />
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Blog preview section-->
+<section class="py-5">
+    <div class="container px-5 my-4">
+        <div class="row gx-5 my-3 justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="text-center">
+                    <h1 class="fw-bolder">Chức Năng Phụ</h1>
+                    <!-- <p class="lead fw-normal text-muted mb-5">Lorem ipsum, dolor sit amet consectetur
+                        adipisicing elit. Eaque fugit ratione dicta mollitia. Officiis ad.</p> -->
+                </div>
+            </div>
+        </div>
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'Image/background/math.png' %}" alt="Toán học" />
+                    <div class="card-body p-4">
+                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
+                        <a class="text-decoration-none link-dark stretched-link" href="#">
+                            <h5 class="card-title mb-3">Toán Học</h5>
+                        </a>
+                        <!-- <p class="card-text mb-0">demo</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'Image/background/physics.png' %}" alt="Vật Lý" />
+                    <div class="card-body p-4">
+                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
+                        <a class="text-decoration-none link-dark stretched-link" href="#">
+                            <h5 class="card-title mb-3">Vật Lý</h5>
+                        </a>
+                        <!-- <p class="card-text mb-0">demo</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'Image/background/technology.png' %}" alt="Tin học" />
+                    <div class="card-body p-4">
+                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
+                        <a class="text-decoration-none link-dark stretched-link" href="#">
+                            <h5 class="card-title mb-3">Tin Học</h5>
+                        </a>
+                        <!-- <p class="card-text mb-0">demo</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'Image/background/exams.png' %}" alt="Đề thi Toán học" />
+                    <div class="card-body p-4">
+                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
+                        <a class="text-decoration-none link-dark stretched-link" href="#">
+                            <h5 class="card-title mb-3">Đề Thi Toán Học</h5>
+                        </a>
+                        <!-- <p class="card-text mb-0">demo</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'Image/background/chemical.png' %}"
+                        alt="Bảng Tuần Hoàn Hóa học" />
+                    <div class="card-body p-4">
+                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
+                        <a class="text-decoration-none link-dark stretched-link" href="#">
+                            <h5 class="card-title mb-3">Tra cứu thông tin hóa học</h5>
+                        </a>
+                        <!-- <p class="card-text mb-0">demo</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'Image/background/engdict.png' %}"
+                        alt="Từ vựng tiếng Anh" />
+                    <div class="card-body p-4">
+                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
+                        <a class="text-decoration-none link-dark stretched-link" href="#">
+                            <h5 class="card-title mb-3">Tra Cứu Từ Vựng Tiếng Anh</h5>
+                        </a>
+                        <!-- <p class="card-text mb-0">demo</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'Image/background/multiple-choice.png' %}" alt="..." />
+                    <div class="card-body p-4">
+                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div> -->
+                        <a class="text-decoration-none link-dark stretched-link" href="/chemical">
+                            <h5 class="card-title mb-3">Bài Trắc Nghiệm Môn Học</h5>
+                        </a>
+                        <!-- <p class="card-text mb-0">demo</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'Image/background/irregular-verb.png' %}" alt="..." />
+                    <div class="card-body p-4">
+                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div> -->
+                        <a class="text-decoration-none link-dark stretched-link" href="/chemical">
+                            <h5 class="card-title mb-3">Động Từ Bất Quy Tắc</h5>
+                        </a>
+                        <!-- <p class="card-text mb-0">demo</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <h1 class="fw-bolder">THÀNH VIÊN</h>
+    </div>
+    <div class="team section" id="team">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <div class="main-content">
+                            <img src="{% static 'Image/dev-team/_MinhTuan.png' %}" alt="Đạt Minh Tuấn">
+                            <span class="category">Nhà Phát Triển</span>
+                            <h4>Minh Tuấn</h4>
+                            <ul class="social-icons">
+                                <li><a href="https://www.facebook.com/profile.php?id=61554015584438"><i
+                                            class="fab fa-facebook"></i></a></li>
+                                <!-- <li><a href="https://www.instagram.com/vhak___/"><i class="fab fa-instagram"></i></a>
+                                </li> -->
+                                <!-- <li><a href="#"><i class="fab fa-linkedin"></i></a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <div class="main-content">
+                            <img src="{% static 'Image/dev-team/_CongToai.png' %}" alt="Đàng Công Toại">
+                            <span class="category">Nhà Phát Triển</span>
+                            <h4>Công Toại</h4>
+                            <ul class="social-icons">
+                                <li><a href="https://www.facebook.com/cong.toai.159083">
+                                        <i class="fab fa-facebook"></i>
+                                    </a></li>
+                                <!-- <li><a href="https://www.instagram.com/nthnguyen3006/"><i
+                                            class="fab fa-instagram"></i></a></li> -->
+                                <!-- <li><a href="#"><i class="fab fa-linkedin"></i></a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% block home %}
+<div class="row" style="width: 100%; transform: translateX(10px);">
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <!-- Thêm style (thẻ style bên dưới) để căn giữa ảnh -->
+                <img src="{% static 'Image/math.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Công Thức <br> Toán Học</strong></h5>
+                <p class="card-text">Tổng công thức Toán học THPT</p>
+            </div>
+            <a href="{% url 'math' %}" class="btn btn-primary">Xem ngay</a>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <!-- Thêm style (thẻ style bên dưới) để căn giữa ảnh -->
+                <img src="{% static 'Image/physics.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Công Thức <br> Vật Lý</strong></h5>
+                <p class="card-text">Tổng công thức Vật Lý THPT</p>
+            </div>
+            <a href="{% url 'physics' %}" class="btn btn-primary">Xem ngay</a>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <!-- Thêm style (thẻ style bên dưới) để căn giữa ảnh -->
+                <img src="{% static 'Image/technology.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Tin Học</strong></h5>
+                <p class="card-text">Kiến thức Tin học theo lộ trình SGK</p>
+            </div>
+            <a href="{% url 'python' %}" class="btn btn-primary">Xem ngay</a>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <!-- Thêm style (thẻ style bên dưới) để căn giữa ảnh -->
+                <img src="{% static 'Image/AI-icon.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>ChatBot</strong></h5>
+                <p class="card-text">Trò chuyện với chat bot (AI)</p>
+            </div>
+            <a href="{% url 'SSChat' %}" class="btn btn-primary">Xem ngay</a>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <img src="{% static 'Image/subject-test.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Trang Trắc Nghiệm</strong></h5>
+                <p class="card-text">Bài test trắc nghiệm các môn học.</p>
+            </div>
+            <a href="{% url 'subject-test' %}" class="btn btn-primary ">Xem ngay</a>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <img src="{% static 'Image/dictionary.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Từ Điển <br> Tiếng Anh</strong></h5>
+                <p class="card-text">Tra cứu từ điển tiếng Anh</p>
+            </div>
+            <a href="{% url 'eng_dict' %}" class="btn btn-primary ">Xem ngay</a>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <!-- Thêm style (thẻ style bên dưới) để căn giữa ảnh -->
+                <img src="{% static 'Image/irregular_verbs.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Bảng Động Từ Bất Quy Tắc </strong></h5>
+                <p class="card-text">Tra cứu trong động từ theo V1 V2 V3</p>
+            </div>
+            <a href="{% url 'irregular' %}" class="btn btn-primary">Xem ngay</a>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <!-- Thêm style (thẻ style bên dưới) để căn giữa ảnh -->
+            <div>
+                <img src="{% static 'Image/periodic-table.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>
+                        Tra Cứu
+                        <br>
+                        Nguyên Tố Hóa Học
+                    </strong></h5>
+                <p class="card-text">Tra cứu về nguyên tố hóa học</p>
+            </div>
+            <a href="{% url 'chemical' %}" class="btn btn-primary justify-content">Xem ngay</a>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <!-- <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <img src="{% static 'Image/conversion.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Chuyển Đổi</strong></h5>
+                <p class="card-text">Chuyển đổi số,...</p>
+            </div>
+            <a href="{% url 'conversion' %}" class="btn btn-primary">Xem ngay</a>
+        </div>
+    </div> -->
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <!-- <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <img src="{% static 'Image/encode.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto 5px auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Mã hóa <br> code Python</strong></h5>
+                <p class="card-text">Giúp bảo mật code Python</p>
+            </div>
+            <a href="{% url 'encode' %}" class="btn btn-primary float-buttom">Xem ngay</a>
+        </div>
+    </div> -->
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="card col-md-6 col-lg-3 col-sm-6 col-6">
+        <div class="card-body text-center" style="display: grid; align-items: end;">
+            <div>
+                <!-- Thêm style (thẻ style bên dưới) để căn giữa ảnh -->
+                <img src="{% static 'Image/exam.png' %}" class="card-img-top" alt=""
+                    style="width: 50%; display: block; margin: 0 auto 5px auto; padding-bottom: 10px;">
+                <h5 class="card-title"><strong>Đề Thi Toán học</strong></h5>
+                <p class="card-text">Tổng hợp tất cả đề thi Toán 9-10-11-12</p>
+            </div>
+            <a href="{% url 'exam' %}" class="btn btn-primary float-buttom">Xem ngay</a>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------------------------------------------- -->
+<br>
+
+{% endblock home %}

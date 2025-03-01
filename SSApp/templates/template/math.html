@@ -1,0 +1,190 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block math %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            /* Chiều cao toàn bộ trình duyệt */
+        }
+
+        /* Header */
+        .header {
+            background-color: #1a237e;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .brand {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main layout */
+        .content {
+            display: flex;
+            flex: 1;
+            /* Chiếm không gian còn lại sau header */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 400px;
+            background-color: #f5f5f5;
+            border-right: 1px solid #ddd;
+            padding: 15px;
+            overflow-y: auto;
+            /* Cho phép cuộn nếu danh sách dài */
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+        }
+
+        .sidebar button {
+            width: 50%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 14px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .sidebar button:hover {
+            background-color: #0c47a1;
+        }
+
+        .main-content {
+            flex: 0 0 50%;
+            /* Chỉ chiếm 80% không gian ngang */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toolbar {
+            background-color: #f1f1f1;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .toolbar button {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .toolbar button:hover {
+            background-color: #0056b3;
+        }
+
+        iframe {
+            flex: 1;
+            /* Mở rộng để chiếm toàn bộ chiều cao còn lại */
+            width: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Document List</h3>
+            <button onclick="loadDocument(0)">tài liệu 1</button>
+            <button onclick="loadDocument(1)">tài liệu 2</button>
+            <button onclick="loadDocument(2)">tài liệu 3</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <button onclick="previousDocument()">Previous</button>
+                <span id="documentInfo">Trang</span>
+                <button onclick="nextDocument()">Next</button>
+            </div>
+            <!-- Document Viewer -->
+            <iframe id="documentViewer" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // List of Google Drive File IDs
+        const fileIds = [
+            "1Y4snBaKdydVxiF_g6XM7-3JFz6-OKwOM",
+            "1Y6WClSWsZ2XZPIKN1cWLZBgY5KfKYfUX",
+            "1s-vQgh6T_AiSp9PlT2BsrBcRNXTGHzT-"
+        ];
+
+        let currentIndex = 0;
+
+        // Function to load a document
+        function loadDocument(index) {
+            if (index < 0 || index >= fileIds.length) return; // Prevent out-of-bounds
+            currentIndex = index;
+            const viewer = document.getElementById("documentViewer");
+            viewer.src = `https://drive.google.com/file/d/${fileIds[index]}/preview`;
+            document.getElementById("documentInfo").innerText = `Document ${index + 1} of ${fileIds.length}`;
+        }
+
+        // Navigation functions
+        function previousDocument() {
+            if (currentIndex > 0) loadDocument(currentIndex - 1);
+        }
+
+        function nextDocument() {
+            if (currentIndex < fileIds.length - 1) loadDocument(currentIndex + 1);
+        }
+
+        // Load the first document by default
+        loadDocument(0);
+    </script>
+</body>
+
+</html>
+
+{% endblock math %}

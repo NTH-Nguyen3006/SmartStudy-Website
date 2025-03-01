@@ -1,0 +1,217 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block signUp %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+<script src="{% static 'Scripts.js' %}"></script>
+
+<div class="register-box">
+    <article class="register-container" id="register-container">
+        <section class="register-form">
+            <div class="form-floating mb-3" id="username-box">
+                <input name="username" class="form-control" id="floatingInput" placeholder="username"
+                    onblur="checkExistsData('username')">
+                <label for="floatingInput">Tên đăng nhập</label>
+            </div>
+
+            <div class="form-floating mb-3" id="full_name-box">
+                <div class="form-floating">
+                    <input name="last_name" class="form-control" id="floatingInput" placeholder="last_name">
+                    <label for="floatingInput">Họ</label>
+                </div>
+                <div class="form-floating">
+                    <input name="first_name" class="form-control" id="floatingInput" placeholder="first_name">
+                    <label for="floatingInput">Tên</label>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3" id="email-box">
+                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                    aria-describedby="validationServerFeedback" onblur="checkExistsData('email')">
+                <label for="floatingInput">Email</label>
+            </div>
+
+            {% include "forms/set-password.html" %}
+
+            <div class="form-floating mb-5">
+                <button class="btn btn-primary" id="submit-button" type="submit" onclick="listen_submit()">
+                    Xác nhận</button>
+            </div>
+        </section>
+
+        <section class="form-floating">
+            <a href="{% url 'social:begin' 'google-oauth2' %}?next=/register/" class="btn btn-light google-sign-in"
+                id="google-button">
+                <div class="google-logo">
+                    <img class="btn-logo" width="25px" height="25px" src="{% static 'Image\logo\google-logo.png' %}">
+                </div>
+                <span style="font-weight: 500;">Đăng ký bằng Google</span>
+            </a>
+        </section>
+    </article>
+</div>
+
+
+<script>
+    const submit_btn = document.getElementById('submit-button');
+    const google_btn = document.getElementById('google-button');
+    const email_box = document.getElementById("email-box");
+    const full_name_box = document.getElementById("full_name-box");
+
+    if ("{{user.is_anonymous}}" == "False") {
+        for (const element of [google_btn, email_box, full_name_box]) {
+            element.innerHTML = "<div></div>";
+        }
+    }
+
+    submit_btn.addEventListener("click", () => {
+        const tags_input = document.querySelectorAll("input.form-control");
+        var isEmpty = false;
+        tags_input.forEach(tagInput => {
+            if (!tagInput.value) { // is empty
+                isEmpty = true;
+                tagInput.className = 'form-control is-invalid';
+
+                let box = document.getElementById(`${tagInput.name}-box`);
+                let create_div = create_valid_feedback("Vui lòng nhập thông tin để xác thực.");
+
+                if (tagInput.name == "first_name" || tagInput.name == "last_name")
+                    box = document.getElementById("full_name-box");
+                if (!box.querySelector('.invalid-feedback'))
+                    box.insertBefore(create_div, box.children[-1]);
+            }
+        });
+
+        if (!isEmpty) {
+            const container = document.getElementsByClassName("register-container");
+            const username = document.getElementsByName('username');
+            const f_name = document.getElementsByName('first_name');
+            const l_name = document.getElementsByName('last_name');
+            const email = document.getElementsByName('email');
+            const password = document.getElementsByName('password');
+            const verify_password = document.getElementsByName('verify_password');
+
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+            const params = new URLSearchParams();
+            var json_user;
+
+            if ((password[0].value == verify_password[0].value)
+                && regex.test(password[0].value)) {
+                if ("{{user.is_anonymous}}" == "True") {
+                    var username_val = username[0].value;
+                    var first_name_val = f_name[0].value;
+                    var last_name_val = f_name[0].value;
+                    var email_val = email[0].value;
+                    var password_val = password[0].value;
+                    var lengthEmail = email_val.length + 29;
+
+                    fetch("{% url 'register' %}", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            'username': username_val,
+                            'email': email_val,
+                            'first_name': first_name_val,
+                            'last_name': last_name_val,
+                            'password': password_val,
+                        })
+                    }).then(response => {
+                        if (response.status == 202) {
+                            for (let index = 0; index < 2; index++) {
+                                username_val = btoa(username_val);
+                                email_val = btoa(email_val);
+                                password_val = btoa(password_val);
+                            }
+                            params.append('u', username_val);
+                            params.append('f', first_name_val);
+                            params.append('l', last_name_val);
+                            params.append('e', email_val + btoa(lengthEmail));
+                            params.append('p', btoa(password_val));
+                            params.append('size', lengthEmail);
+
+                            container[0].innerHTML = `{% include 'forms/snippet.html' %}`
+                            window.location.href = `{% url 'otp-code' %}?${params}`
+                        }
+                        else { //status 400
+                            response.json().then(data => {
+                                const box = document.getElementById(`${data.error_input}-box`)
+                                let create_div = create_valid_feedback(data.messages);
+                                document.getElementsByName(data.error_input)[0].classList.add("is-invalid");
+
+                                if (!box.querySelector('.invalid-feedback'))
+                                    box.insertBefore(create_div, box.children[-1]);
+                            })
+                        }
+                    });
+                } else { // trường hợp đăng kí bằng gmail
+                    fetch("{% url 'register' %}", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            'type': "saveUsername",
+                            'email': "{{user.email}}",
+                            'username': username[0].value,
+                            'password': password[0].value
+                        })
+                    }).then(response => {
+                        if (response.status == 202 || response.status == 200) {
+                            window.location.href = "{% url 'home' %}"
+                        } else {
+                            response.json().then(data => {
+                                const box = document.getElementById(`${data.error_input}-box`)
+                                let create_div = create_valid_feedback(data.messages);
+                                document.getElementsByName(data.error_input)[0].classList.add("is-invalid");
+
+                                if (!box.querySelector('.invalid-feedback'))
+                                    box.insertBefore(create_div, box.children[-1]);
+                            })
+                        }
+                    })
+                }
+
+            } else { // Mật khẩu không đúng
+                const box = document.getElementById("verify_password-box")
+                let create_div = create_valid_feedback("Mật khẩu xác nhận không hợp lệ.")
+                document.getElementsByName("verify_password")[0]
+                    .classList.add("is-invalid");
+
+                if (!box.querySelector('.invalid-feedback'))
+                    box.insertBefore(create_div, box.children[-1]);
+            }
+        }
+    });
+
+    function create_valid_feedback(content, className = "invalid") {
+        let create_div = document.createElement('div');
+        create_div.className = `${className}-feedback`;
+        create_div.id = "validationServerFeedback";
+        create_div.textContent = content;
+
+        return create_div;
+    }
+
+    function checkExistsData(element_name) {
+        const input_tag = document.getElementsByName(element_name)[0];
+        var input_value = input_tag.value;
+        var json = {};
+        // thêm trường email || username vào json và fetch đến server.
+        json[`${element_name}`] = input_value;
+
+        if (input_value) {
+            fetch("{% url 'register' %}", {
+                method: "POST",
+                body: JSON.stringify(json)
+            }).then(response => {
+                if (response.status == 202) {
+                    const box = document.getElementById(`${element_name}-box`);
+                    input_tag.className = "form-control is-valid";
+
+                    if (box.querySelector('.invalid-feedback')) {
+                        box.querySelector('.invalid-feedback').remove();
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+
+{% endblock signUp %}

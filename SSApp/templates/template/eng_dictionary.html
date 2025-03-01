@@ -1,0 +1,128 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block eng_dict %}
+<style>
+    .search-action>form {
+        width: 50%;
+    }
+
+    .search-action {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .search-action>form>input {
+        width: 100%;
+        border: 2px solid black;
+        height: 40px !important;
+    }
+
+    .search-action>form>input,
+    .search-action>form>button {
+        border-radius: 30px;
+    }
+
+    .header.engdict {
+        /* font-size: 20px; */
+        color: #c44;
+        font-weight: 700;
+    }
+
+    .body-content.engdict {
+        font-size: 16px;
+    }
+
+    .container.engdict {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 30px;
+        background-color: #fff;
+        padding: 10px 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container.engdict {
+            width: 720px;
+        }
+
+        .search-action>form {
+            width: 70%;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .container.engdict {
+            width: 100%;
+        }
+
+        .search-action>form {
+            width: 70%;
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .container.engdict {
+            width: 960px;
+        }
+    }
+</style>
+
+<div class="search-action">
+    <form class="d-flex dictEng" role="search" id="form-eng-dict">
+        <input class="form-control-lg me-2" name="search" type="search" aria-label="Search" id="search-box"
+            placeholder="Tìm kiếm từ vựng" autocomplete="off" list="verbs" autofocus>
+        <button class="btn btn-success" type="submit"> <!-- lấy lại bootstrap icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+        </button>
+    </form>
+</div>
+
+<br>
+
+<div class="content" style="width: 100%;">
+    <div class="container engdict">
+        <h2 class="header engdict">
+            Từ điển Anh - Việt (en - vi)
+        </h2>
+
+        <hr>
+        <div class="body-content engdict" style="margin-left: 10px;" id="box-content">
+            <section style="color: #4d4646;">
+                <h5>Hello</h5>
+                <h5>Bạn có thể tìm kiếm các từ vựng trên thanh tìm kiếm</h5>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const form = document.getElementById('form-eng-dict')
+    const box_content = document.getElementById('box-content')
+
+    form.addEventListener('submit', function (e) {
+        box_content.innerHTML = `{% include "../forms/snippet.html" %}`
+
+        e.preventDefault();
+        let params = `word=${document.getElementById('search-box').value}`
+
+
+        fetch('{% url "eng_dict" %}?' + params)
+            .then(response => response.json())
+            .then(data => {
+                var word = data.word
+                var mean = data.mean
+
+                box_content.innerHTML = mean
+            });
+    })
+
+</script>
+
+{% endblock eng_dict %}

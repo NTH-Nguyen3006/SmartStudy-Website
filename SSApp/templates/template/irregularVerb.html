@@ -1,0 +1,136 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block irregular %}
+<style>
+    .d-flex.irregular {
+        width: 60%;
+        /* margin-left: 10%; */
+    }
+
+    th.col.irregular {
+        align-items: center;
+    }
+
+    thead {
+        font-size: medium;
+    }
+
+    .verb {
+        width: 100px;
+    }
+
+    .mean {
+        margin-left: 10px;
+    }
+
+    .box-table-irregular {
+        overflow-x: auto;
+    }
+
+    @media screen and (min-width: 992px) {
+        table.table.irregular {
+            width: 50% !important;
+        }
+
+        thead {
+            font-size: large;
+        }
+
+        div.box-table.irregular {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        figure.box-table-irregular {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        thead {
+            font-size: medium;
+        }
+
+        .verb {
+            font-size: 9px;
+        }
+    }
+</style>
+
+<div style="width: 100%; height: auto; display: flex; justify-content: center;">
+    <form class="d-flex irregular" role="search">
+        <input class="form-control me-2" name="search" type="search" aria-label="Search" placeholder="Tìm kiếm động từ"
+            autocomplete="off" style="border: 2px solid black; height: 40px;" list="verbs">
+
+        <button class="btn btn-success" type="submit"> <!-- lấy lại bootstrap icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+        </button>
+    </form>
+</div>
+
+<br>
+
+<div class="box-table irregular">
+    <figure class="box-table-irregular">
+        <table class="table irregular">
+            <thead>
+                <tr class="table-primary irregular">
+                    <th>
+                        <p class="" style="margin-bottom: 0 !important; margin-left: 20px">Verb 1</p>
+                    </th>
+                    <th>
+                        <p class="" style="margin-bottom: 0 !important">Verb 2</p>
+                    </th>
+                    <th>
+                        <p class="" style="margin-bottom: 0 !important">Verb 3</p>
+                    </th>
+                    <th>
+                        <p class="mean" style="margin-bottom: 0 !important">Nghĩa</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in words %}
+                <tr class="table-warning irregular">
+                    <td>
+                        <p class="verb 1" style="margin-left: 20px;">{{item.verb1}}</p>
+                    </td>
+                    <td>
+                        <p class="verb 2">{{item.verb2}}</p>
+                    </td>
+                    <td>
+                        <p class="verb 3">{{item.verb3}}</p>
+                    </td>
+                    <td>
+                        <p class="verb mean" style="width: 100px;">{{item.mean}}</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+</div>
+
+<div style="float: right; position: fixed; top: 90%; right: 20%;">
+    <a href="#">
+        <button type="button" class="btn btn-outline-danger" style="position: absolute;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                class="bi bi-chevron-bar-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M3.646 11.854a.5.5 0 0 0 .708 0L8 8.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708M2.4 5.2c0 .22.18.4.4.4h10.4a.4.4 0 0 0 0-.8H2.8a.4.4 0 0 0-.4.4" />
+            </svg>
+        </button>
+    </a>
+</div>
+
+
+
+{% endblock irregular %}
