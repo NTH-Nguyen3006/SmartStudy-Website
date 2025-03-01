@@ -165,8 +165,8 @@ LOGIN_REDIRECT_URL = "home"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "login"
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1052919731334-b0eh2o5grbkkoj2h400q5eh9b4kp54j6.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "Oauth2-code.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "Oauth2-Secret"
 
 # SOCIAL_AUTH_LOGIN_ERROR_URL = 'register'
 # SOCIAL_AUTH_BACKEND_ERROR_URL = 'register'
@@ -175,20 +175,14 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "smartstudy2023edu@gmail.com"
-EMAIL_HOST_PASSWORD = "zmnx nlsd yvvn ciyh"
+EMAIL_HOST_USER = "YourEmail@gmail.com"
+EMAIL_HOST_PASSWORD = "Your Secret Key"
 
 # TOKEN API 
 GENAI_KEYS = [
-    "AIzaSyB6VIzIMt-Eax92Zt9GPQeiM0wE2KLo090", 
-    "AIzaSyBsDUsHnMcr_Ge2v_bfUqHM93UyxQhhLoM",
-    "AIzaSyDa6lrPCSEBRNCSdf9rNT7fB-M0LtUauSk",
-    "AIzaSyCviosQe-qIKt_MhseTVXO7GEYzmCkVSmE",
-    "AIzaSyBLi2riLSjuQEfnyIf31aoSlEJNluq8-F4", 
-    # "AIzaSyAn0P7Dlsr9ECtxIAXF8t7HsLEIwZsv12w",
-    # "AIzaSyBurZlgp1HygtPZxR-VwOxgr_2HZZQKo1U",
-    # "AIzaSyAHQeP6Kxts5kx8IftP-EShNb9P9a18uGM",
-] # len = 5
+    "API Key 1", 
+    "API Key 2"
+] 
 
 OPENAI_KEY = ""
 
